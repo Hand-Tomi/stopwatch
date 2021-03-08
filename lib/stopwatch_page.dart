@@ -22,7 +22,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
     );
   }
 
-  Widget timeText() {
+  Widget _timeText() {
     return Padding(
       padding: const EdgeInsets.only(top: 30.0, bottom: 30.0),
       child: Text(
@@ -32,7 +32,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
     );
   }
 
-  Widget rapTable() {
+  Widget _rapTable() {
     return Expanded(
       child: DataTable(
         columns: const <DataColumn>[
@@ -82,7 +82,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
     );
   }
 
-  Widget controller() {
+  Widget _controller() {
     return IconButton(icon: Icon(Icons.play_arrow), onPressed: () {});
   }
 }
