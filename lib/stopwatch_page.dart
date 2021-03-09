@@ -16,7 +16,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               _timeText(),
-              _rapTable(),
+              _lapTable(),
               _controller(),
             ],
           ),
@@ -35,7 +35,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
     );
   }
 
-  Widget _rapTable() {
+  Widget _lapTable() {
     return Expanded(
       child: DataTable(
         columns: const <DataColumn>[
