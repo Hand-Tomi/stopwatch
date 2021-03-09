@@ -10,13 +10,16 @@ class _StopwatchPageState extends State<StopwatchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            timeText(),
-            rapTable(),
-            controller(),
-          ],
+        child: SizedBox(
+          width: double.infinity,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              _timeText(),
+              _rapTable(),
+              _controller(),
+            ],
+          ),
         ),
       ),
     );
@@ -38,19 +41,19 @@ class _StopwatchPageState extends State<StopwatchPage> {
         columns: const <DataColumn>[
           DataColumn(
             label: Text(
-              '랩',
+              'Lab',
               style: TextStyle(fontStyle: FontStyle.italic),
             ),
           ),
           DataColumn(
             label: Text(
-              '랩타임',
+              'Lap Times',
               style: TextStyle(fontStyle: FontStyle.italic),
             ),
           ),
           DataColumn(
             label: Text(
-              '시간',
+              'Time',
               style: TextStyle(fontStyle: FontStyle.italic),
             ),
           ),
@@ -83,6 +86,19 @@ class _StopwatchPageState extends State<StopwatchPage> {
   }
 
   Widget _controller() {
-    return IconButton(icon: Icon(Icons.play_arrow), onPressed: () {});
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 30.0),
+      child: SizedBox(
+        width: 60.0,
+        height: 60.0,
+        child: IconButton(
+            padding: const EdgeInsets.all(0.0),
+            icon: Icon(
+              Icons.play_circle_fill_rounded,
+              size: 60.0,
+            ),
+            onPressed: () {}),
+      ),
+    );
   }
 }
