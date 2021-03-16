@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stopwatch/bloc/stopwatch_event.dart';
+import 'package:stopwatch/widget/stopwatch_joystick.dart';
 
 import 'bloc/stopwatch_bloc.dart';
 import 'bloc/stopwatch_state.dart';
@@ -24,7 +24,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
               children: [
                 _timeText(),
                 _lapTable(),
-                _controller(),
+                StopwatchJoystick(),
               ],
             ),
           ),
@@ -103,41 +103,6 @@ class _StopwatchPageState extends State<StopwatchPage> {
           ),
         ],
       ),
-    );
-  }
-
-  Widget _controller() {
-    return Builder(
-      builder: (context) {
-        StopwatchBloc bloc =
-            BlocProvider.of<StopwatchBloc>(context, listen: false);
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 30.0),
-          child: SizedBox(
-            width: 60.0,
-            height: 60.0,
-            child: BlocBuilder<StopwatchBloc, StopwatchState>(
-              builder: (context, state) {
-                return IconButton(
-                    padding: const EdgeInsets.all(0.0),
-                    icon: Icon(
-                      state is StopwatchPlaying
-                          ? Icons.pause_circle_filled_rounded
-                          : Icons.play_circle_fill_rounded,
-                      size: 60.0,
-                    ),
-                    onPressed: () {
-                      if (state is StopwatchPlaying) {
-                        bloc.add(StopwatchPaused());
-                      } else {
-                        bloc.add(StopwatchStarted());
-                      }
-                    });
-              },
-            ),
-          ),
-        );
-      },
     );
   }
 }
