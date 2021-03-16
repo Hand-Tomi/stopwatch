@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stopwatch/widget/stopwatch_joystick.dart';
+import 'package:stopwatch/widget/stopwatch_time_text.dart';
 
 import 'bloc/stopwatch_bloc.dart';
-import 'bloc/stopwatch_state.dart';
 
 class StopwatchPage extends StatefulWidget {
   @override
@@ -22,7 +22,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                _timeText(),
+                StopwatchTimeText(),
                 _lapTable(),
                 StopwatchJoystick(),
               ],
@@ -31,29 +31,6 @@ class _StopwatchPageState extends State<StopwatchPage> {
         ),
       ),
     );
-  }
-
-  Widget _timeText() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 30.0, bottom: 30.0),
-      child: BlocBuilder<StopwatchBloc, StopwatchState>(
-        builder: (conteseaxt, state) {
-          return Text(
-            getDisplayTime(state.msec),
-            style: TextStyle(fontSize: 50.0),
-          );
-        },
-      ),
-    );
-  }
-
-  String getDisplayTime(int msec) {
-    final minute = (msec / (60 * 1000)).floor().toString().padLeft(2, '0');
-    final second =
-        (msec % (60 * 1000) / 1000).floor().toString().padLeft(2, '0');
-    final milliSecond = (msec % 1000 / 10).floor().toString().padLeft(2, '0');
-
-    return '$minute:$second:$milliSecond';
   }
 
   Widget _lapTable() {
