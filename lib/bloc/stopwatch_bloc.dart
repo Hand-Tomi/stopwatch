@@ -1,14 +1,17 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stopwatch/bloc/stopwatch_event.dart';
 import 'package:stopwatch/bloc/stopwatch_state.dart';
 
 class StopwatchBloc extends Bloc<StopwatchEvent, StopwatchState> {
-  final _stopwatch = Stopwatch();
+  final Stopwatch _stopwatch;
   Timer _updater;
 
-  StopwatchBloc() : super(StopwatchInitial());
+  StopwatchBloc({@required Stopwatch stopwatch})
+      : _stopwatch = stopwatch,
+        super(StopwatchInitial());
 
   @override
   Stream<StopwatchState> mapEventToState(event) async* {

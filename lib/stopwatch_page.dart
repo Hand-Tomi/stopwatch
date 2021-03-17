@@ -19,7 +19,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
         child: SizedBox(
           width: double.infinity,
           child: BlocProvider<StopwatchBloc>(
-            create: (context) => StopwatchBloc(),
+            create: (context) => StopwatchBloc(stopwatch: Stopwatch()),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
