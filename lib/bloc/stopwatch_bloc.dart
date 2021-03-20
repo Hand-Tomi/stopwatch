@@ -4,13 +4,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stopwatch/bloc/stopwatch_event.dart';
 import 'package:stopwatch/bloc/stopwatch_state.dart';
+import 'package:stopwatch/replicator.dart';
 
 class StopwatchBloc extends Bloc<StopwatchEvent, StopwatchState> {
+  final Replicator _replcator;
   final Stopwatch _stopwatch;
-  Timer _updater;
 
-  StopwatchBloc({@required Stopwatch stopwatch})
+  StopwatchBloc({@required Stopwatch stopwatch, @required Replicator replcator})
       : _stopwatch = stopwatch,
+        _replcator = replcator,
         super(StopwatchInitial());
 
   @override
@@ -20,7 +22,7 @@ class StopwatchBloc extends Bloc<StopwatchEvent, StopwatchState> {
         yield* _mapStopwatchStartedToState();
         break;
       case StopwatchTicked:
-        yield* _mapStopwatchTickedToState();
+        yield* _mapStopwatchTickedToState(event);
         break;
       case StopwatchPaused:
         yield* _mapStopwatchPausedToState();
@@ -32,22 +34,23 @@ class StopwatchBloc extends Bloc<StopwatchEvent, StopwatchState> {
   Stream<StopwatchState> _mapStopwatchStartedToState() async* {
     _stopwatch.start();
     yield StopwatchPlaying(_stopwatchMsec());
-    _updater = Timer.periodic(const Duration(milliseconds: 10), _updateTime);
+    _replcator.start(_updateTime);
   }
 
-  Stream<StopwatchState> _mapStopwatchTickedToState() async* {
-    yield StopwatchPlaying(_stopwatchMsec());
+  Stream<StopwatchState> _mapStopwatchTickedToState(
+      StopwatchTicked event) async* {
+    yield StopwatchPlaying(event.msec);
   }
 
   Stream<StopwatchState> _mapStopwatchPausedToState() async* {
-    _updater.cancel();
-    _updater = null;
+    _replcator.stop();
     _stopwatch.stop();
     yield StopwatchPausing(_stopwatchMsec());
   }
 
-  void _updateTime(Timer _) {
-    add(StopwatchTicked(_stopwatchMsec()));
+  void _updateTime() {
+    final msec = _stopwatchMsec();
+    add(StopwatchTicked(msec));
   }
 
   int _stopwatchMsec() => _stopwatch.elapsedMilliseconds;
