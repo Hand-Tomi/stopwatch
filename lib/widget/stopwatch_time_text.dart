@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stopwatch/bloc/stopwatch_bloc.dart';
-import 'package:stopwatch/bloc/stopwatch_state.dart';
+import 'package:stopwatch/bloc/stopwatch/stopwatch.dart';
 
 class StopwatchTimeText extends StatelessWidget {
   @override
