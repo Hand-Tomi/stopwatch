@@ -1,9 +1,9 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:stopwatch/bloc/stopwatch_bloc.dart';
-import 'package:stopwatch/bloc/stopwatch_event.dart';
-import 'package:stopwatch/bloc/stopwatch_state.dart';
+import 'package:stopwatch/bloc/stopwatch/stopwatch_bloc.dart';
+import 'package:stopwatch/bloc/stopwatch/stopwatch_event.dart';
+import 'package:stopwatch/bloc/stopwatch/stopwatch_state.dart';
 import 'package:stopwatch/replicator.dart';
 
 class MockStopwatch extends Mock implements Stopwatch {}

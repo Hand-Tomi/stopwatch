@@ -5,7 +5,7 @@ import 'package:stopwatch/widget/stopwatch_joystick.dart';
 import 'package:stopwatch/widget/stopwatch_laps_table.dart';
 import 'package:stopwatch/widget/stopwatch_time_text.dart';
 
-import 'bloc/stopwatch_bloc.dart';
+import 'bloc/stopwatch/stopwatch_bloc.dart';
 
 class StopwatchPage extends StatefulWidget {
   @override
