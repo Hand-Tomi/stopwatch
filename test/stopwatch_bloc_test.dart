@@ -61,5 +61,17 @@ void main() {
       wait: Duration(milliseconds: 50),
       expect: const <StopwatchState>[StopwatchPlaying(10)],
     );
+
+    blocTest<StopwatchBloc, StopwatchState>(
+      'reset',
+      build: () => bloc,
+      act: (bloc) => bloc.add(StopwatchReset()),
+      wait: Duration(milliseconds: 50),
+      expect: const <StopwatchState>[StopwatchInitial()],
+      verify: (_) {
+        verify(mockStopwatch.stop());
+        verify(mockReplcator.stop());
+      },
+    );
   });
 }
