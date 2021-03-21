@@ -11,7 +11,7 @@ class Replicator {
   }
 
   void stop() {
-    _updater.cancel();
+    _updater?.cancel();
     _updater = null;
   }
 }
