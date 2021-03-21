@@ -26,13 +26,11 @@ class StopwatchJoystick extends StatelessWidget {
       height: 60.0,
       child: BlocBuilder<StopwatchBloc, StopwatchState>(
         builder: (context, state) {
-          return IconButton(
-              padding: const EdgeInsets.all(0.0),
-              icon: Icon(
-                Icons.cancel,
-                size: 60.0,
-              ),
-              onPressed: () {});
+          if (state is StopwatchInitial) {
+            return _emptyWidget();
+          } else {
+            return _resetButton(bloc);
+          }
         },
       ),
     );
@@ -75,6 +73,8 @@ class StopwatchJoystick extends StatelessWidget {
     );
   }
 
+  Widget _emptyWidget() => Container();
+
   Widget _playButton(StopwatchBloc bloc) {
     return IconButton(
         padding: const EdgeInsets.all(0.0),
@@ -93,5 +93,16 @@ class StopwatchJoystick extends StatelessWidget {
           size: 60.0,
         ),
         onPressed: () => bloc.add(StopwatchPaused()));
+  }
+
+  Widget _resetButton(StopwatchBloc bloc) {
+    return IconButton(
+      padding: const EdgeInsets.all(0.0),
+      icon: Icon(
+        Icons.cancel,
+        size: 60.0,
+      ),
+      onPressed: () => bloc.add(StopwatchReset()),
+    );
   }
 }

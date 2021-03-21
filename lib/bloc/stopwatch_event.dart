@@ -14,3 +14,5 @@ class StopwatchTicked extends StopwatchEvent {
 }
 
 class StopwatchPaused extends StopwatchEvent {}
+
+class StopwatchReset extends StopwatchEvent {}

@@ -27,6 +27,9 @@ class StopwatchBloc extends Bloc<StopwatchEvent, StopwatchState> {
       case StopwatchPaused:
         yield* _mapStopwatchPausedToState();
         break;
+      case StopwatchReset:
+        yield* _mapStopwatchResetToState();
+        break;
       default:
     }
   }
@@ -46,6 +49,12 @@ class StopwatchBloc extends Bloc<StopwatchEvent, StopwatchState> {
     _replcator.stop();
     _stopwatch.stop();
     yield StopwatchPausing(_stopwatchMsec());
+  }
+
+  Stream<StopwatchState> _mapStopwatchResetToState() async* {
+    _replcator.stop();
+    _stopwatch.stop();
+    yield StopwatchInitial();
   }
 
   void _updateTime() {
