@@ -69,7 +69,7 @@ void main() {
       wait: Duration(milliseconds: 50),
       expect: const <StopwatchState>[StopwatchInitial()],
       verify: (_) {
-        verify(mockStopwatch.stop());
+        verify(mockStopwatch.reset());
         verify(mockReplcator.stop());
       },
     );
