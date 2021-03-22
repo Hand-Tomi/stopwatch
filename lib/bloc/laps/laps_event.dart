@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-abstract class LabsEvent extends Equatable {
-  const LabsEvent();
+abstract class LapsEvent extends Equatable {
+  const LapsEvent();
   @override
   List<Object> get props => [];
 }
