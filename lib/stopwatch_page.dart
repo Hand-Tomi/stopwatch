@@ -5,6 +5,7 @@ import 'package:stopwatch/widget/stopwatch_joystick.dart';
 import 'package:stopwatch/widget/stopwatch_laps_table.dart';
 import 'package:stopwatch/widget/stopwatch_time_text.dart';
 
+import 'bloc/laps/laps_bloc.dart';
 import 'bloc/stopwatch/stopwatch_bloc.dart';
 
 class StopwatchPage extends StatefulWidget {
@@ -21,11 +22,18 @@ class _StopwatchPageState extends State<StopwatchPage> {
       body: SafeArea(
         child: SizedBox(
           width: double.infinity,
-          child: BlocProvider<StopwatchBloc>(
-            create: (context) => StopwatchBloc(
-              stopwatch: Stopwatch(),
-              replcator: Replicator(_updateInterval),
-            ),
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider<StopwatchBloc>(
+                create: (context) => StopwatchBloc(
+                  stopwatch: Stopwatch(),
+                  replcator: Replicator(_updateInterval),
+                ),
+              ),
+              BlocProvider<LapsBloc>(
+                create: (context) => LapsBloc(),
+              ),
+            ],
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
