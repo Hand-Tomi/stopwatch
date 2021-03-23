@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:stopwatch/bloc/laps/laps.dart';
 import 'package:stopwatch/bloc/stopwatch/stopwatch.dart';
+import 'package:stopwatch/model/lap.dart';
 
 class StopwatchJoystick extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = BlocProvider.of<StopwatchBloc>(context);
+    final lapsBloc = BlocProvider.of<LapsBloc>(context);
     return Padding(
         padding: const EdgeInsets.only(bottom: 30.0),
         child: Row(
@@ -13,7 +16,7 @@ class StopwatchJoystick extends StatelessWidget {
           children: [
             _leftButton(bloc),
             _centerButton(bloc),
-            _rightButton(bloc),
+            _rightButton(lapsBloc),
           ],
         ));
   }
@@ -53,7 +56,7 @@ class StopwatchJoystick extends StatelessWidget {
     );
   }
 
-  Widget _rightButton(StopwatchBloc bloc) {
+  Widget _rightButton(LapsBloc bloc) {
     return SizedBox(
       width: 60.0,
       height: 60.0,
@@ -65,10 +68,19 @@ class StopwatchJoystick extends StatelessWidget {
                 Icons.add_circle,
                 size: 60.0,
               ),
-              onPressed: () {});
+              onPressed: () {
+                bloc.add(LapsAdded(createLap(bloc, state)));
+              });
         },
       ),
     );
+  }
+
+  Lap createLap(LapsBloc lapsBloc, StopwatchState stopwatchState) {
+    final lap = lapsBloc.state?.length ?? 0;
+    final lapTime = stopwatchState.msec;
+    final splitTime = stopwatchState.msec;
+    return Lap(lap, lapTime, splitTime);
   }
 
   Widget _emptyWidget() => Container();
