@@ -62,25 +62,10 @@ class StopwatchJoystick extends StatelessWidget {
       height: 60.0,
       child: BlocBuilder<StopwatchBloc, StopwatchState>(
         builder: (context, state) {
-          return IconButton(
-              padding: const EdgeInsets.all(0.0),
-              icon: Icon(
-                Icons.add_circle,
-                size: 60.0,
-              ),
-              onPressed: () {
-                bloc.add(LapsAdded(createLap(bloc, state)));
-              });
+          return _splitButton(bloc, state);
         },
       ),
     );
-  }
-
-  Lap createLap(LapsBloc lapsBloc, StopwatchState stopwatchState) {
-    final lap = lapsBloc.state?.length ?? 0;
-    final lapTime = stopwatchState.msec;
-    final splitTime = stopwatchState.msec;
-    return Lap(lap, lapTime, splitTime);
   }
 
   Widget _emptyWidget() => Container();
@@ -114,5 +99,25 @@ class StopwatchJoystick extends StatelessWidget {
       ),
       onPressed: () => bloc.add(StopwatchReset()),
     );
+  }
+
+  Widget _splitButton(LapsBloc bloc, StopwatchState stopwatchState) {
+    return IconButton(
+      padding: const EdgeInsets.all(0.0),
+      icon: Icon(
+        Icons.add_circle,
+        size: 60.0,
+      ),
+      onPressed: () {
+        bloc.add(LapsAdded(createLap(bloc, stopwatchState)));
+      },
+    );
+  }
+
+  Lap createLap(LapsBloc lapsBloc, StopwatchState stopwatchState) {
+    final lap = lapsBloc.state?.length ?? 0;
+    final lapTime = stopwatchState.msec;
+    final splitTime = stopwatchState.msec;
+    return Lap(lap, lapTime, splitTime);
   }
 }
