@@ -14,14 +14,14 @@ class StopwatchJoystick extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _leftButton(bloc),
+            _leftButton(bloc, lapsBloc),
             _centerButton(bloc),
             _rightButton(lapsBloc),
           ],
         ));
   }
 
-  Widget _leftButton(StopwatchBloc bloc) {
+  Widget _leftButton(StopwatchBloc bloc, LapsBloc lapsBloc) {
     return SizedBox(
       width: 60.0,
       height: 60.0,
@@ -30,7 +30,7 @@ class StopwatchJoystick extends StatelessWidget {
           if (state is StopwatchInitial) {
             return _emptyWidget();
           } else {
-            return _resetButton(bloc);
+            return _resetButton(bloc, lapsBloc);
           }
         },
       ),
@@ -94,14 +94,17 @@ class StopwatchJoystick extends StatelessWidget {
         onPressed: () => bloc.add(StopwatchPaused()));
   }
 
-  Widget _resetButton(StopwatchBloc bloc) {
+  Widget _resetButton(StopwatchBloc bloc, LapsBloc lapsBloc) {
     return IconButton(
       padding: const EdgeInsets.all(0.0),
       icon: Icon(
         Icons.cancel,
         size: 60.0,
       ),
-      onPressed: () => bloc.add(StopwatchReset()),
+      onPressed: () {
+        bloc.add(StopwatchReset());
+        lapsBloc.add(LapsCleared());
+      },
     );
   }
 

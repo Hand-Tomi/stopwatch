@@ -11,11 +11,18 @@ class LapsBloc extends Bloc<LapsEvent, List<Lap>> {
       case LapsAdded:
         yield* _mapLapsAddedToState(event);
         break;
+      case LapsCleared:
+        yield* _mapLapsClearedToState();
+        break;
     }
   }
 
   Stream<List<Lap>> _mapLapsAddedToState(LapsAdded event) async* {
     final List<Lap> updatedLaps = List.from(state)..add(event.lap);
     yield updatedLaps;
+  }
+
+  Stream<List<Lap>> _mapLapsClearedToState() async* {
+    yield List.empty();
   }
 }

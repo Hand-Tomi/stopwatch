@@ -15,3 +15,10 @@ class LapsAdded extends LapsEvent {
   @override
   List<Object> get props => [lap];
 }
+
+class LapsCleared extends LapsEvent {
+  const LapsCleared();
+
+  @override
+  List<Object> get props => [];
+}
