@@ -113,12 +113,12 @@ class StopwatchJoystick extends StatelessWidget {
         size: 60.0,
       ),
       onPressed: () {
-        bloc.add(LapsAdded(createLap(bloc, stopwatchState)));
+        bloc.add(LapsAdded(_createLap(bloc, stopwatchState)));
       },
     );
   }
 
-  Lap createLap(LapsBloc lapsBloc, StopwatchState stopwatchState) {
+  Lap _createLap(LapsBloc lapsBloc, StopwatchState stopwatchState) {
     final lap = lapsBloc.state?.length ?? 0;
     final lapTime = stopwatchState.msec;
     final splitTime = stopwatchState.msec;
