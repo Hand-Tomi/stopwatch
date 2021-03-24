@@ -119,9 +119,16 @@ class StopwatchJoystick extends StatelessWidget {
   }
 
   Lap _createLap(LapsBloc lapsBloc, StopwatchState stopwatchState) {
-    final lap = lapsBloc.state?.length ?? 0;
+    final lap = _countLap(lapsBloc);
     final lapTime = stopwatchState.msec;
     final splitTime = stopwatchState.msec;
     return Lap(lap, lapTime, splitTime);
+  }
+
+  static final _firstLapCount = 1;
+
+  int _countLap(LapsBloc lapsBloc) {
+    final lapCount = lapsBloc.state?.length ?? 0;
+    return _firstLapCount + lapCount;
   }
 }
