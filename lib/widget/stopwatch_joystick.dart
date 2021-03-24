@@ -62,7 +62,11 @@ class StopwatchJoystick extends StatelessWidget {
       height: 60.0,
       child: BlocBuilder<StopwatchBloc, StopwatchState>(
         builder: (context, state) {
-          return _splitButton(bloc, state);
+          if (state is StopwatchPlaying) {
+            return _splitButton(bloc, state);
+          } else {
+            return _emptyWidget();
+          }
         },
       ),
     );
