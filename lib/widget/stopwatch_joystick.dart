@@ -10,7 +10,7 @@ class StopwatchJoystick extends StatelessWidget {
     final bloc = BlocProvider.of<StopwatchBloc>(context);
     final lapsBloc = BlocProvider.of<LapsBloc>(context);
     return Padding(
-        padding: const EdgeInsets.only(bottom: 30.0),
+        padding: const EdgeInsets.only(top: 30, bottom: 30.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
