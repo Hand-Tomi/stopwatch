@@ -32,7 +32,7 @@ class StopwatchLapsTable extends StatelessWidget {
                   ),
                 ),
               ],
-              rows: state.map((lap) => createDataRow(lap)).toList(),
+              rows: state.reversed.map((lap) => createDataRow(lap)).toList(),
             ),
           );
         },
