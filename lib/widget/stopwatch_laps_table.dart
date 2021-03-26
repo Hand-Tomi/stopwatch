@@ -15,7 +15,7 @@ class StopwatchLapsTable extends StatelessWidget {
               columns: const <DataColumn>[
                 DataColumn(
                   label: Text(
-                    'Lab',
+                    'Lap',
                     style: TextStyle(fontStyle: FontStyle.italic),
                   ),
                 ),
@@ -27,7 +27,7 @@ class StopwatchLapsTable extends StatelessWidget {
                 ),
                 DataColumn(
                   label: Text(
-                    'Time',
+                    'Split Time',
                     style: TextStyle(fontStyle: FontStyle.italic),
                   ),
                 ),
