@@ -5,6 +5,8 @@ import 'package:stopwatch/bloc/stopwatch/stopwatch.dart';
 import 'package:stopwatch/model/lap.dart';
 
 class StopwatchJoystick extends StatelessWidget {
+  static final iconSize = 60.0;
+
   @override
   Widget build(BuildContext context) {
     final bloc = BlocProvider.of<StopwatchBloc>(context);
@@ -23,8 +25,8 @@ class StopwatchJoystick extends StatelessWidget {
 
   Widget _leftButton(StopwatchBloc bloc, LapsBloc lapsBloc) {
     return SizedBox(
-      width: 60.0,
-      height: 60.0,
+      width: iconSize,
+      height: iconSize,
       child: BlocBuilder<StopwatchBloc, StopwatchState>(
         builder: (context, state) {
           if (state is StopwatchInitial) {
@@ -41,8 +43,8 @@ class StopwatchJoystick extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(left: 15, right: 15),
       child: SizedBox(
-        width: 60.0,
-        height: 60.0,
+        width: iconSize,
+        height: iconSize,
         child: BlocBuilder<StopwatchBloc, StopwatchState>(
           builder: (context, state) {
             if (state is StopwatchPlaying) {
@@ -58,8 +60,8 @@ class StopwatchJoystick extends StatelessWidget {
 
   Widget _rightButton(LapsBloc bloc) {
     return SizedBox(
-      width: 60.0,
-      height: 60.0,
+      width: iconSize,
+      height: iconSize,
       child: BlocBuilder<StopwatchBloc, StopwatchState>(
         builder: (context, state) {
           if (state is StopwatchPlaying) {
@@ -79,7 +81,7 @@ class StopwatchJoystick extends StatelessWidget {
         padding: const EdgeInsets.all(0.0),
         icon: Icon(
           Icons.play_circle_fill_rounded,
-          size: 60.0,
+          size: iconSize,
         ),
         onPressed: () => bloc.add(StopwatchStarted()));
   }
@@ -89,7 +91,7 @@ class StopwatchJoystick extends StatelessWidget {
         padding: const EdgeInsets.all(0.0),
         icon: Icon(
           Icons.pause_circle_filled_rounded,
-          size: 60.0,
+          size: iconSize,
         ),
         onPressed: () => bloc.add(StopwatchPaused()));
   }
@@ -99,7 +101,7 @@ class StopwatchJoystick extends StatelessWidget {
       padding: const EdgeInsets.all(0.0),
       icon: Icon(
         Icons.cancel,
-        size: 60.0,
+        size: iconSize,
       ),
       onPressed: () {
         bloc.add(StopwatchReset());
@@ -113,7 +115,7 @@ class StopwatchJoystick extends StatelessWidget {
       padding: const EdgeInsets.all(0.0),
       icon: Icon(
         Icons.add_circle,
-        size: 60.0,
+        size: iconSize,
       ),
       onPressed: () {
         bloc.add(LapsAdded(_createLap(bloc, stopwatchState)));
