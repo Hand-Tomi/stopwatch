@@ -32,7 +32,7 @@ void main() {
       },
       act: (bloc) => bloc.add(StopwatchStarted()),
       wait: Duration(milliseconds: 50),
-      expect: const <StopwatchState>[StopwatchPlaying(0)],
+      expect: () => const <StopwatchState>[StopwatchPlaying(0)],
       verify: (_) {
         verify(mockStopwatch.start());
         verify(mockReplcator.start(any));
@@ -47,7 +47,7 @@ void main() {
       },
       act: (bloc) => bloc.add(StopwatchPaused()),
       wait: Duration(milliseconds: 50),
-      expect: const <StopwatchState>[StopwatchPausing(0)],
+      expect: () => const <StopwatchState>[StopwatchPausing(0)],
       verify: (_) {
         verify(mockStopwatch.stop());
         verify(mockReplcator.stop());
@@ -59,7 +59,7 @@ void main() {
       build: () => bloc,
       act: (bloc) => bloc.add(StopwatchTicked(10)),
       wait: Duration(milliseconds: 50),
-      expect: const <StopwatchState>[StopwatchPlaying(10)],
+      expect: () => const <StopwatchState>[StopwatchPlaying(10)],
     );
 
     blocTest<StopwatchBloc, StopwatchState>(
@@ -67,7 +67,7 @@ void main() {
       build: () => bloc,
       act: (bloc) => bloc.add(StopwatchReset()),
       wait: Duration(milliseconds: 50),
-      expect: const <StopwatchState>[StopwatchInitial()],
+      expect: () => const <StopwatchState>[StopwatchInitial()],
       verify: (_) {
         verify(mockStopwatch.reset());
         verify(mockReplcator.stop());
