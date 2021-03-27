@@ -5,7 +5,7 @@ import 'package:stopwatch/bloc/stopwatch/stopwatch.dart';
 import 'package:stopwatch/model/lap.dart';
 
 class StopwatchJoystick extends StatelessWidget {
-  static final iconSize = 60.0;
+  static final iconSize = 80.0;
 
   @override
   Widget build(BuildContext context) {
