@@ -8,5 +8,5 @@ class Lap extends Equatable {
   const Lap(this.lap, this.lapTime, this.splitTime);
 
   @override
-  List<Object> get props => throw UnimplementedError();
+  List<Object> get props => [lap, lapTime, splitTime];
 }
