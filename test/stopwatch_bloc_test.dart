@@ -5,24 +5,34 @@ import 'package:stopwatch/bloc/stopwatch/stopwatch_bloc.dart';
 import 'package:stopwatch/bloc/stopwatch/stopwatch_event.dart';
 import 'package:stopwatch/bloc/stopwatch/stopwatch_state.dart';
 import 'package:stopwatch/replicator.dart';
+import 'package:mockito/annotations.dart';
 
-class MockStopwatch extends Mock implements Stopwatch {}
+import 'stopwatch_bloc_test.mocks.dart';
 
-class MockReplcator extends Mock implements Replicator {}
-
+@GenerateMocks(
+  [],
+  customMocks: [
+    // https://github.com/dart-lang/mockito/issues/367
+    // 현재 "void function"는 제대로 Mock가 되지 않는 문제점이 발생하고 있다.
+    // 위의 Issue가 해결 될때까지는 아래와 같이 레거시를 사용한다.
+    MockSpec<Stopwatch>(returnNullOnMissingStub: true),
+    MockSpec<Replicator>(returnNullOnMissingStub: true)
+  ],
+)
 void main() {
-  StopwatchBloc bloc;
-  MockStopwatch mockStopwatch;
-  MockReplcator mockReplcator;
+  late StopwatchBloc bloc;
+  late MockStopwatch mockStopwatch;
+  late MockReplicator mockReplicator;
 
   setUp(() {
     mockStopwatch = MockStopwatch();
-    mockReplcator = MockReplcator();
+    mockReplicator = MockReplicator();
     bloc = StopwatchBloc(
       stopwatch: mockStopwatch,
-      replcator: mockReplcator,
+      replcator: mockReplicator,
     );
   });
+
   group('StopwatchBloc', () {
     blocTest<StopwatchBloc, StopwatchState>(
       'started',
@@ -35,7 +45,7 @@ void main() {
       expect: () => const <StopwatchState>[StopwatchPlaying(0)],
       verify: (_) {
         verify(mockStopwatch.start());
-        verify(mockReplcator.start(any));
+        verify(mockReplicator.start(any));
       },
     );
 
@@ -50,7 +60,7 @@ void main() {
       expect: () => const <StopwatchState>[StopwatchPausing(0)],
       verify: (_) {
         verify(mockStopwatch.stop());
-        verify(mockReplcator.stop());
+        verify(mockReplicator.stop());
       },
     );
 
@@ -70,7 +80,7 @@ void main() {
       expect: () => const <StopwatchState>[StopwatchInitial()],
       verify: (_) {
         verify(mockStopwatch.reset());
-        verify(mockReplcator.stop());
+        verify(mockReplicator.stop());
       },
     );
   });

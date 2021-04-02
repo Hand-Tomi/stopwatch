@@ -9,7 +9,7 @@ class LapsBloc extends Bloc<LapsEvent, List<Lap>> {
   Stream<List<Lap>> mapEventToState(event) async* {
     switch (event.runtimeType) {
       case LapsAdded:
-        yield* _mapLapsAddedToState(event);
+        yield* _mapLapsAddedToState(event as LapsAdded);
         break;
       case LapsCleared:
         yield* _mapLapsClearedToState();

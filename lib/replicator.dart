@@ -2,7 +2,7 @@ import 'dart:async';
 
 class Replicator {
   Duration _duration;
-  Timer _updater;
+  Timer? _updater;
 
   Replicator(Duration duration) : _duration = duration;
 

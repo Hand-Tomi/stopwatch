@@ -1,15 +1,14 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stopwatch/bloc/stopwatch/stopwatch.dart';
 import 'package:stopwatch/replicator.dart';
 
 class StopwatchBloc extends Bloc<StopwatchEvent, StopwatchState> {
-  final Replicator _replcator;
   final Stopwatch _stopwatch;
+  final Replicator _replcator;
 
-  StopwatchBloc({@required Stopwatch stopwatch, @required Replicator replcator})
+  StopwatchBloc({required Stopwatch stopwatch, required Replicator replcator})
       : _stopwatch = stopwatch,
         _replcator = replcator,
         super(StopwatchInitial());
@@ -21,7 +20,7 @@ class StopwatchBloc extends Bloc<StopwatchEvent, StopwatchState> {
         yield* _mapStopwatchStartedToState();
         break;
       case StopwatchTicked:
-        yield* _mapStopwatchTickedToState(event);
+        yield* _mapStopwatchTickedToState(event as StopwatchTicked);
         break;
       case StopwatchPaused:
         yield* _mapStopwatchPausedToState();
