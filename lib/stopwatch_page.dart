@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:stopwatch/replicator.dart';
+import 'package:stopwatch/notification/notification_helper.dart';
 import 'package:stopwatch/widget/stopwatch_joystick.dart';
 import 'package:stopwatch/widget/stopwatch_laps_table.dart';
 import 'package:stopwatch/widget/stopwatch_time_text.dart';
 
-import 'bloc/laps/laps_bloc.dart';
-import 'bloc/stopwatch/stopwatch_bloc.dart';
+import 'bloc/stopwatch/stopwatch.dart';
 
 class StopwatchPage extends StatefulWidget {
   @override
@@ -14,26 +13,17 @@ class StopwatchPage extends StatefulWidget {
 }
 
 class _StopwatchPageState extends State<StopwatchPage> {
-  static final Duration _updateInterval = Duration(milliseconds: 10);
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: SizedBox(
-          width: double.infinity,
-          child: MultiBlocProvider(
-            providers: [
-              BlocProvider<StopwatchBloc>(
-                create: (context) => StopwatchBloc(
-                  stopwatch: Stopwatch(),
-                  replcator: Replicator(_updateInterval),
-                ),
-              ),
-              BlocProvider<LapsBloc>(
-                create: (context) => LapsBloc(),
-              ),
-            ],
+    return BlocListener<StopwatchBloc, StopwatchState>(
+      listener: (context, state) {
+        print('BlocListener state $state');
+        context.read<NotificationHelper>().showNotification(state.msec);
+      },
+      child: Scaffold(
+        body: SafeArea(
+          child: SizedBox(
+            width: double.infinity,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
