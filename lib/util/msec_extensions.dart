@@ -7,4 +7,10 @@ extension DisplayTimeParsing on int {
 
     return '$minute:$second:$milliSecond';
   }
+
+  String parseDisplayTimeOfSeconds() {
+    final minute = (this / (60)).floor().toString().padLeft(2, '0');
+    final second = (this % 60).floor().toString().padLeft(2, '0');
+    return '$minute:$second';
+  }
 }

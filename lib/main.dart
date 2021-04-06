@@ -54,6 +54,10 @@ class MyApp extends StatelessWidget {
       BlocProvider<LapsBloc>(
         create: (context) => LapsBloc(),
       ),
+      BlocProvider<StopwatchNotificationBloc>(create: (context) {
+        final notificationHelper = context.read<NotificationHelper>();
+        return StopwatchNotificationBloc(notificationHelper);
+      }),
     ];
   }
 }
