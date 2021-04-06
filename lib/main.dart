@@ -1,13 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
+import 'package:stopwatch/bloc/stopwatch_notification/stopwatch_notification_bloc.dart';
 import 'package:stopwatch/replicator.dart';
 import 'package:stopwatch/stopwatch_page.dart';
+import 'package:stopwatch/notification/notification_helper.dart';
 
 import 'bloc/laps/laps.dart';
 import 'bloc/stopwatch/stopwatch.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        Provider<NotificationHelper>(
+          create: (_) => NotificationHelper(),
+          lazy: false,
+        ),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
