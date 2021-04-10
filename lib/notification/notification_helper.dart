@@ -37,6 +37,8 @@ class NotificationHelper {
       channelShowBadge: false,
       importance: Importance.low,
       priority: Priority.high,
+      playSound: false,
+      enableVibration: false,
       onlyAlertOnce: true,
     );
     final NotificationDetails platformChannelSpecifics =
