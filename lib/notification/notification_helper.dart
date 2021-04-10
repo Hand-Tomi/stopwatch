@@ -35,7 +35,7 @@ class NotificationHelper {
       channelName,
       channelDescription,
       channelShowBadge: false,
-      importance: Importance.max,
+      importance: Importance.low,
       priority: Priority.high,
       onlyAlertOnce: true,
     );
