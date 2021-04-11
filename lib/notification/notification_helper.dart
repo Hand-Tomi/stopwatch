@@ -1,4 +1,5 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:stopwatch/notification/android_notification_details_wrapper.dart';
 
 class NotificationHelper {
   static const iconFileName = 'app_icon';
@@ -22,27 +23,13 @@ class NotificationHelper {
   }
 
   Future<void> show(
+    AndroidNotificationDetailsWrapper detailsWrapper,
     int notificationId,
-    String channelId,
-    String channelName,
-    String channelDescription,
     String title,
     String body,
   ) async {
-    final AndroidNotificationDetails androidPlatformChannelSpecifics =
-        AndroidNotificationDetails(
-      channelId,
-      channelName,
-      channelDescription,
-      channelShowBadge: false,
-      importance: Importance.low,
-      priority: Priority.high,
-      playSound: false,
-      enableVibration: false,
-      onlyAlertOnce: true,
-    );
     final NotificationDetails platformChannelSpecifics =
-        NotificationDetails(android: androidPlatformChannelSpecifics);
+        NotificationDetails(android: detailsWrapper.value);
     await plugin.show(
       notificationId,
       title,

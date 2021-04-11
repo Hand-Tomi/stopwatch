@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:stopwatch/notification/android_notification_details_wrapper.dart';
 import 'package:stopwatch/notification/notification_helper.dart';
 import 'package:stopwatch/util/msec_extensions.dart';
 
@@ -9,6 +10,24 @@ class StopwatchNotificationBloc
   static final String channelId = "stopwatch";
   static final String channelName = "stopwatch";
   static final String channelDescription = "Show stopwatch time";
+  static final bool channelShowBadge = false;
+  static final ImportanceWrapper importance = ImportanceWrapper.LOW;
+  static final PriorityWrapper priority = PriorityWrapper.HIGH;
+  static final bool playSound = false;
+  static final bool enableVibration = false;
+  static final bool onlyAlertOnce = true;
+  static final AndroidNotificationDetailsWrapper notificationDetails =
+      AndroidNotificationDetailsWrapper(
+          channelId,
+          channelName,
+          channelDescription,
+          channelShowBadge,
+          importance,
+          priority,
+          playSound,
+          enableVibration,
+          onlyAlertOnce);
+
   static final int notificationId = 1000;
   static final String body = "Stopwatch";
   final NotificationHelper _notificationHelper;
@@ -40,10 +59,8 @@ class StopwatchNotificationBloc
     if (_currentSeconds < newSeconds) {
       _currentSeconds = newSeconds;
       _notificationHelper.show(
+        notificationDetails,
         notificationId,
-        channelId,
-        channelName,
-        channelDescription,
         newSeconds.parseDisplayTimeOfSeconds(),
         body,
       );
