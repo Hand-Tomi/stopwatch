@@ -17,7 +17,7 @@ enum PriorityWrapper { MIN, LOW, DEFAULT, HIGH, MAX }
 class AndroidNotificationDetailsWrapper {
   late AndroidNotificationDetails _details;
 
-  get value => _details;
+  get raw => _details;
 
   AndroidNotificationDetailsWrapper(
     String channelId,
@@ -35,8 +35,8 @@ class AndroidNotificationDetailsWrapper {
       channelName,
       channelDescription,
       channelShowBadge: channelShowBadge,
-      importance: importance.parseImportance(),
-      priority: priority.parsePriority(),
+      importance: importance.raw(),
+      priority: priority.raw(),
       playSound: playSound,
       enableVibration: enableVibration,
       onlyAlertOnce: onlyAlertOnce,
@@ -45,7 +45,7 @@ class AndroidNotificationDetailsWrapper {
 }
 
 extension ImportanceParsing on ImportanceWrapper {
-  Importance parseImportance() {
+  Importance raw() {
     switch (this) {
       case ImportanceWrapper.NONE:
         return Importance.none;
@@ -64,7 +64,7 @@ extension ImportanceParsing on ImportanceWrapper {
 }
 
 extension PriorityParsing on PriorityWrapper {
-  Priority parsePriority() {
+  Priority raw() {
     switch (this) {
       case PriorityWrapper.MIN:
         return Priority.min;

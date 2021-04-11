@@ -29,7 +29,7 @@ class NotificationHelper {
     String body,
   ) async {
     final NotificationDetails platformChannelSpecifics =
-        NotificationDetails(android: detailsWrapper.value);
+        NotificationDetails(android: detailsWrapper.raw);
     await plugin.show(
       notificationId,
       title,
