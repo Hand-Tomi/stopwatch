@@ -7,6 +7,8 @@ import 'dart:async' as _i4;
 import 'package:flutter_local_notifications/src/flutter_local_notifications_plugin.dart'
     as _i2;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:stopwatch/notification/android_notification_details_wrapper.dart'
+    as _i5;
 import 'package:stopwatch/notification/notification_helper.dart' as _i3;
 
 // ignore_for_file: comment_references
@@ -34,22 +36,11 @@ class MockNotificationHelper extends _i1.Mock
       super.noSuchMethod(Invocation.setter(#plugin, _plugin),
           returnValueForMissingStub: null);
   @override
-  _i4.Future<void> show(
-          int? notificationId,
-          String? channelId,
-          String? channelName,
-          String? channelDescription,
-          String? title,
-          String? body) =>
+  _i4.Future<void> show(_i5.AndroidNotificationDetailsWrapper? detailsWrapper,
+          int? notificationId, String? title, String? body) =>
       (super.noSuchMethod(
-          Invocation.method(#show, [
-            notificationId,
-            channelId,
-            channelName,
-            channelDescription,
-            title,
-            body
-          ]),
+          Invocation.method(
+              #show, [detailsWrapper, notificationId, title, body]),
           returnValue: Future.value(null),
           returnValueForMissingStub: Future.value()) as _i4.Future<void>);
   @override

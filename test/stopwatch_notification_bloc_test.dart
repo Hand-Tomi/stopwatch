@@ -5,6 +5,7 @@ import 'package:mockito/mockito.dart';
 import 'package:stopwatch/bloc/stopwatch_notification/stopwatch_notification.dart';
 import 'package:stopwatch/bloc/stopwatch_notification/stopwatch_notification_bloc.dart';
 import 'package:stopwatch/notification/notification_helper.dart';
+import 'package:stopwatch/notification/android_notification_details_wrapper.dart';
 
 import 'stopwatch_notification_bloc_test.mocks.dart';
 
@@ -17,6 +18,9 @@ void main() {
     notificationHelper = MockNotificationHelper();
     bloc = StopwatchNotificationBloc(notificationHelper);
   });
+
+  final AndroidNotificationDetailsWrapper notificationDetails =
+      StopwatchNotificationBloc.notificationDetails;
 
   group('StopwatchNotificationBloc', () {
     final int dummyMsec = 70000; // 01:10
@@ -32,10 +36,8 @@ void main() {
           const <StopwatchNotificationState>[StopwatchNotificationShowing()],
       verify: (_) {
         verify(notificationHelper.show(
+            notificationDetails,
             StopwatchNotificationBloc.notificationId,
-            StopwatchNotificationBloc.channelId,
-            StopwatchNotificationBloc.channelName,
-            StopwatchNotificationBloc.channelDescription,
             argThat(contains(displayText)),
             StopwatchNotificationBloc.body));
       },
@@ -72,18 +74,14 @@ void main() {
       verify: (_) {
         verifyInOrder([
           notificationHelper.show(
+              notificationDetails,
               StopwatchNotificationBloc.notificationId,
-              StopwatchNotificationBloc.channelId,
-              StopwatchNotificationBloc.channelName,
-              StopwatchNotificationBloc.channelDescription,
               argThat(contains(displayText)),
               StopwatchNotificationBloc.body),
           notificationHelper.cancel(StopwatchNotificationBloc.notificationId),
           notificationHelper.show(
+              notificationDetails,
               StopwatchNotificationBloc.notificationId,
-              StopwatchNotificationBloc.channelId,
-              StopwatchNotificationBloc.channelName,
-              StopwatchNotificationBloc.channelDescription,
               argThat(contains(displayText)),
               StopwatchNotificationBloc.body),
         ]);
@@ -100,10 +98,8 @@ void main() {
           const <StopwatchNotificationState>[StopwatchNotificationShowing()],
       verify: (_) {
         verify(notificationHelper.show(
+            notificationDetails,
             StopwatchNotificationBloc.notificationId,
-            StopwatchNotificationBloc.channelId,
-            StopwatchNotificationBloc.channelName,
-            StopwatchNotificationBloc.channelDescription,
             argThat(contains('55:55')),
             StopwatchNotificationBloc.body));
       },
@@ -119,10 +115,8 @@ void main() {
           const <StopwatchNotificationState>[StopwatchNotificationShowing()],
       verify: (_) {
         verify(notificationHelper.show(
+            notificationDetails,
             StopwatchNotificationBloc.notificationId,
-            StopwatchNotificationBloc.channelId,
-            StopwatchNotificationBloc.channelName,
-            StopwatchNotificationBloc.channelDescription,
             argThat(contains('111:11')),
             StopwatchNotificationBloc.body));
       },
@@ -157,46 +151,34 @@ void main() {
       verify: (_) {
         verifyInOrder([
           notificationHelper.show(
+              notificationDetails,
               StopwatchNotificationBloc.notificationId,
-              StopwatchNotificationBloc.channelId,
-              StopwatchNotificationBloc.channelName,
-              StopwatchNotificationBloc.channelDescription,
               argThat(contains(oneSecondDisplayText)),
               StopwatchNotificationBloc.body),
           notificationHelper.show(
+              notificationDetails,
               StopwatchNotificationBloc.notificationId,
-              StopwatchNotificationBloc.channelId,
-              StopwatchNotificationBloc.channelName,
-              StopwatchNotificationBloc.channelDescription,
               argThat(contains(twoSecondDisplayText)),
               StopwatchNotificationBloc.body),
           notificationHelper.show(
+              notificationDetails,
               StopwatchNotificationBloc.notificationId,
-              StopwatchNotificationBloc.channelId,
-              StopwatchNotificationBloc.channelName,
-              StopwatchNotificationBloc.channelDescription,
               argThat(contains(threeSecondDisplayText)),
               StopwatchNotificationBloc.body),
           notificationHelper.cancel(StopwatchNotificationBloc.notificationId),
           notificationHelper.show(
+              notificationDetails,
               StopwatchNotificationBloc.notificationId,
-              StopwatchNotificationBloc.channelId,
-              StopwatchNotificationBloc.channelName,
-              StopwatchNotificationBloc.channelDescription,
               argThat(contains(oneSecondDisplayText)),
               StopwatchNotificationBloc.body),
           notificationHelper.show(
+              notificationDetails,
               StopwatchNotificationBloc.notificationId,
-              StopwatchNotificationBloc.channelId,
-              StopwatchNotificationBloc.channelName,
-              StopwatchNotificationBloc.channelDescription,
               argThat(contains(twoSecondDisplayText)),
               StopwatchNotificationBloc.body),
           notificationHelper.show(
+              notificationDetails,
               StopwatchNotificationBloc.notificationId,
-              StopwatchNotificationBloc.channelId,
-              StopwatchNotificationBloc.channelName,
-              StopwatchNotificationBloc.channelDescription,
               argThat(contains(threeSecondDisplayText)),
               StopwatchNotificationBloc.body),
         ]);
