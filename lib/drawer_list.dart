@@ -15,11 +15,8 @@ class DrawerList extends StatelessWidget {
           //   ),
           // ),
           ListTile(
-            title: Text('Item 1'),
-            onTap: () {
-              // Update the state of the app.
-              // ...
-            },
+            title: Text('Licenses'),
+            onTap: () => showLicensePage(context: context),
           ),
           // ListTile(
           //   title: Text('Item 2'),
