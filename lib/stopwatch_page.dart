@@ -14,11 +14,16 @@ class StopwatchPage extends StatefulWidget {
 }
 
 class _StopwatchPageState extends State<StopwatchPage> {
+  static final pageTitle = 'Stopwatch';
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<StopwatchBloc, StopwatchState>(
       listener: _passingStateWithStopwatchNotification,
       child: Scaffold(
+        appBar: AppBar(
+          title: Text(pageTitle),
+        ),
         body: SafeArea(
           child: SizedBox(
             width: double.infinity,
