@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stopwatch/bloc/stopwatch_notification/stopwatch_notification_bloc.dart';
+import 'package:stopwatch/drawer_list.dart';
 import 'package:stopwatch/widget/stopwatch_joystick.dart';
 import 'package:stopwatch/widget/stopwatch_laps_table.dart';
 import 'package:stopwatch/widget/stopwatch_time_text.dart';
@@ -23,6 +24,9 @@ class _StopwatchPageState extends State<StopwatchPage> {
       child: Scaffold(
         appBar: AppBar(
           title: Text(pageTitle),
+        ),
+        drawer: Drawer(
+          child: DrawerList(),
         ),
         body: SafeArea(
           child: SizedBox(
