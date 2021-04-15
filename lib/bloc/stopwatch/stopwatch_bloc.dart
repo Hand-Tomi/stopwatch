@@ -51,6 +51,7 @@ class StopwatchBloc extends Bloc<StopwatchEvent, StopwatchState> {
 
   Stream<StopwatchState> _mapStopwatchResetToState() async* {
     _replcator.stop();
+    _stopwatch.stop();
     _stopwatch.reset();
     yield StopwatchInitial();
   }
