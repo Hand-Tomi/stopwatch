@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:stopwatch/bloc/stopwatch_notification/stopwatch_notification_bloc.dart';
+import 'package:stopwatch/core/app_theme.dart';
 import 'package:stopwatch/replicator.dart';
 import 'package:stopwatch/stopwatch_page.dart';
 import 'package:stopwatch/notification/notification_helper.dart';
@@ -28,9 +29,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'StopWatch',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: AppTheme.theme,
       home: stopwatchPage(),
     );
   }
