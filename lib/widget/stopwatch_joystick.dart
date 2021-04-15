@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stopwatch/bloc/laps/laps.dart';
 import 'package:stopwatch/bloc/stopwatch/stopwatch.dart';
 import 'package:stopwatch/model/lap.dart';
+import 'package:stopwatch/widget/round_button.dart';
 
 class StopwatchJoystick extends StatelessWidget {
   static final iconSize = 80.0;
@@ -77,32 +78,22 @@ class StopwatchJoystick extends StatelessWidget {
   Widget _emptyWidget() => Container();
 
   Widget _playButton(StopwatchBloc bloc) {
-    return IconButton(
-        padding: const EdgeInsets.all(0.0),
-        icon: Icon(
-          Icons.play_circle_fill_rounded,
-          size: iconSize,
-        ),
-        onPressed: () => bloc.add(StopwatchStarted()));
+    return RoundButton(
+      icon: Icon(Icons.play_circle_fill_rounded, size: iconSize),
+      onPressed: () => bloc.add(StopwatchStarted()),
+    );
   }
 
   Widget _pauseButton(StopwatchBloc bloc) {
-    return IconButton(
-        padding: const EdgeInsets.all(0.0),
-        icon: Icon(
-          Icons.pause_circle_filled_rounded,
-          size: iconSize,
-        ),
-        onPressed: () => bloc.add(StopwatchPaused()));
+    return RoundButton(
+      icon: Icon(Icons.pause_circle_filled_rounded, size: iconSize),
+      onPressed: () => bloc.add(StopwatchPaused()),
+    );
   }
 
   Widget _resetButton(StopwatchBloc bloc, LapsBloc lapsBloc) {
-    return IconButton(
-      padding: const EdgeInsets.all(0.0),
-      icon: Icon(
-        Icons.cancel,
-        size: iconSize,
-      ),
+    return RoundButton(
+      icon: Icon(Icons.cancel, size: iconSize),
       onPressed: () {
         bloc.add(StopwatchReset());
         lapsBloc.add(LapsCleared());
@@ -111,12 +102,8 @@ class StopwatchJoystick extends StatelessWidget {
   }
 
   Widget _splitButton(LapsBloc bloc, StopwatchState stopwatchState) {
-    return IconButton(
-      padding: const EdgeInsets.all(0.0),
-      icon: Icon(
-        Icons.add_circle,
-        size: iconSize,
-      ),
+    return RoundButton(
+      icon: Icon(Icons.add_circle, size: iconSize),
       onPressed: () {
         bloc.add(LapsAdded(_createLap(bloc, stopwatchState)));
       },
