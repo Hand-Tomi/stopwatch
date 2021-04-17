@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:stopwatch/bloc/stopwatch_notification/stopwatch_notification_bloc.dart';
 import 'package:stopwatch/core/app_theme.dart';
-import 'package:stopwatch/replicator.dart';
-import 'package:stopwatch/stopwatch_page.dart';
+import 'package:stopwatch/routes_creator.dart';
 import 'package:stopwatch/notification/notification_helper.dart';
-
-import 'bloc/laps/laps.dart';
-import 'bloc/stopwatch/stopwatch.dart';
 
 void main() {
   runApp(
@@ -30,33 +24,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'StopWatch',
       theme: AppTheme.theme,
-      home: stopwatchPage(),
+      routes: RoutesCreator().routes,
     );
-  }
-
-  Widget stopwatchPage() {
-    return MultiBlocProvider(
-      providers: stopwatchPageBlocProvider(),
-      child: StopwatchPage(),
-    );
-  }
-
-  List<BlocProvider> stopwatchPageBlocProvider() {
-    final Duration _updateInterval = const Duration(milliseconds: 10);
-    return [
-      BlocProvider<StopwatchBloc>(
-        create: (context) => StopwatchBloc(
-          stopwatch: Stopwatch(),
-          replcator: Replicator(_updateInterval),
-        ),
-      ),
-      BlocProvider<LapsBloc>(
-        create: (context) => LapsBloc(),
-      ),
-      BlocProvider<StopwatchNotificationBloc>(create: (context) {
-        final notificationHelper = context.read<NotificationHelper>();
-        return StopwatchNotificationBloc(notificationHelper);
-      }),
-    ];
   }
 }
