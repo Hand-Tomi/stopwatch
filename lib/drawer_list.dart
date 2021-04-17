@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stopwatch/routes.dart';
 
 class DrawerList extends StatelessWidget {
   @override
@@ -14,6 +15,12 @@ class DrawerList extends StatelessWidget {
           //     color: Colors.blue,
           //   ),
           // ),
+          ListTile(
+            title: Text('History'),
+            onTap: () {
+              Navigator.pushNamed(context, Routes.history);
+            },
+          ),
           ListTile(
             title: Text('Licenses'),
             onTap: () => showLicensePage(context: context),
