@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:grouped_list/grouped_list.dart';
-import 'package:stopwatch/model/history.dart';
 import 'package:stopwatch/util/date_time_extensions.dart';
 import 'package:stopwatch/util/msec_extensions.dart';
+
+import 'database/model/history.dart';
 
 class HistoryPage extends StatelessWidget {
   final String pageTitle = 'History';
