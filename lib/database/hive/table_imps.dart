@@ -2,7 +2,13 @@ import 'package:hive/hive.dart';
 
 import '../table.dart';
 
-class TableImpl<T> extends Table {
+class TableImpl<T> extends Table<T> {
   Box<T> box;
   TableImpl(this.box);
+
+  @override
+  Future<int> add(value) => box.add(value);
+
+  @override
+  Iterable<T> getValues() => box.values;
 }
