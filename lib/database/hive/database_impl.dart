@@ -1,5 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:stopwatch/core/app_tables.dart';
 import 'package:stopwatch/database/hive/table_imps.dart';
 import 'package:stopwatch/database/model/history.dart';
@@ -8,12 +9,23 @@ import '../database.dart';
 import '../table.dart';
 
 class DatabaseImps extends Database {
-  void init() async {
+  final _isInitialized = BehaviorSubject<bool>.seeded(false);
+
+  @override
+  Future<void> init() async {
     await Hive.initFlutter();
     Hive.registerAdapter(HistoryAdapter());
+    _isInitialized.add(true);
   }
 
+  @override
   Future<Table<T>> getTable<T>(AppTables table) async {
-    return TableImpl(await Hive.openBox<T>(table.name)) as Table<T>;
+    await waitForInitalization();
+    final box = await Hive.openBox<T>(table.name);
+    return TableImpl<T>(box);
+  }
+
+  Future<void> waitForInitalization() async {
+    await _isInitialized.firstWhere((isInitialized) => isInitialized);
   }
 }
