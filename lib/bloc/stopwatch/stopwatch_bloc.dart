@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stopwatch/bloc/stopwatch/stopwatch.dart';
-import 'package:stopwatch/replicator.dart';
+import 'package:stopwatch/util/replicator.dart';
 
 class StopwatchBloc extends Bloc<StopwatchEvent, StopwatchState> {
   final Stopwatch _stopwatch;

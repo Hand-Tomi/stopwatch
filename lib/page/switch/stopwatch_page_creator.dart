@@ -4,8 +4,8 @@ import 'package:stopwatch/bloc/laps/laps.dart';
 import 'package:stopwatch/bloc/stopwatch/stopwatch.dart';
 import 'package:stopwatch/bloc/stopwatch_notification/stopwatch_notification.dart';
 import 'package:stopwatch/notification/notification_helper.dart';
-import 'package:stopwatch/replicator.dart';
-import 'package:stopwatch/stopwatch_page.dart';
+import 'package:stopwatch/util/replicator.dart';
+import 'package:stopwatch/page/switch/stopwatch_page.dart';
 
 class StopwatchPageCreator {
   Widget create(BuildContext context) {

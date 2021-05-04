@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stopwatch/bloc/laps/laps.dart';
 import 'package:stopwatch/bloc/stopwatch/stopwatch.dart';
 import 'package:stopwatch/model/lap.dart';
-import 'package:stopwatch/widget/round_button.dart';
+import 'package:stopwatch/page/switch/widget/round_button.dart';
 
 class StopwatchJoystick extends StatelessWidget {
   static final iconSize = 80.0;

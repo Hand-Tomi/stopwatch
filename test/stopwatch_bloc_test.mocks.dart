@@ -3,7 +3,7 @@
 // Do not manually edit this file.
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:stopwatch/replicator.dart' as _i2;
+import 'package:stopwatch/util/replicator.dart' as _i2;
 
 // ignore_for_file: comment_references
 // ignore_for_file: unnecessary_parenthesis
@@ -14,6 +14,10 @@ class _FakeDuration extends _i1.Fake implements Duration {}
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockStopwatch extends _i1.Mock implements Stopwatch {
+  MockStopwatch() {
+    _i1.throwOnMissingStub(this);
+  }
+
   @override
   int get frequency =>
       (super.noSuchMethod(Invocation.getter(#frequency), returnValue: 0)
@@ -52,6 +56,10 @@ class MockStopwatch extends _i1.Mock implements Stopwatch {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockReplicator extends _i1.Mock implements _i2.Replicator {
+  MockReplicator() {
+    _i1.throwOnMissingStub(this);
+  }
+
   @override
   void start(void Function()? callback) =>
       super.noSuchMethod(Invocation.method(#start, [callback]),

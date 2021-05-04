@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stopwatch/bloc/stopwatch_notification/stopwatch_notification_bloc.dart';
-import 'package:stopwatch/drawer_list.dart';
-import 'package:stopwatch/widget/stopwatch_joystick.dart';
-import 'package:stopwatch/widget/stopwatch_laps_table.dart';
-import 'package:stopwatch/widget/stopwatch_time_text.dart';
+import 'package:stopwatch/page/switch/drawer_list.dart';
+import 'package:stopwatch/page/switch/widget/stopwatch_joystick.dart';
+import 'package:stopwatch/page/switch/widget/stopwatch_laps_table.dart';
+import 'package:stopwatch/page/switch/widget/stopwatch_time_text.dart';
 
-import 'bloc/stopwatch/stopwatch.dart';
-import 'bloc/stopwatch_notification/stopwatch_notification.dart';
+import '../../bloc/stopwatch/stopwatch.dart';
+import '../../bloc/stopwatch_notification/stopwatch_notification.dart';
 
 class StopwatchPage extends StatefulWidget {
   @override

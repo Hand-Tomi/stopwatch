@@ -4,21 +4,12 @@ import 'package:mockito/mockito.dart';
 import 'package:stopwatch/bloc/stopwatch/stopwatch_bloc.dart';
 import 'package:stopwatch/bloc/stopwatch/stopwatch_event.dart';
 import 'package:stopwatch/bloc/stopwatch/stopwatch_state.dart';
-import 'package:stopwatch/replicator.dart';
+import 'package:stopwatch/util/replicator.dart';
 import 'package:mockito/annotations.dart';
 
 import 'stopwatch_bloc_test.mocks.dart';
 
-@GenerateMocks(
-  [],
-  customMocks: [
-    // https://github.com/dart-lang/mockito/issues/367
-    // 현재 "void function"는 제대로 Mock가 되지 않는 문제점이 발생하고 있다.
-    // 위의 Issue가 해결 될때까지는 아래와 같이 레거시를 사용한다.
-    MockSpec<Stopwatch>(returnNullOnMissingStub: true),
-    MockSpec<Replicator>(returnNullOnMissingStub: true)
-  ],
-)
+@GenerateMocks([Stopwatch, Replicator])
 void main() {
   late StopwatchBloc bloc;
   late MockStopwatch mockStopwatch;
