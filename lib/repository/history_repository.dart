@@ -1,7 +1,7 @@
 import 'package:stopwatch/core/app_tables.dart';
 import 'package:stopwatch/database/database.dart';
-import 'package:stopwatch/database/model/history.dart';
 import 'package:stopwatch/database/table.dart';
+import 'package:stopwatch/model/history.dart';
 
 class HistoryRepository {
   final Database _database;

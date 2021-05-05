@@ -3,7 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:stopwatch/core/app_tables.dart';
 import 'package:stopwatch/database/hive/table_imps.dart';
-import 'package:stopwatch/database/model/history.dart';
+import 'package:stopwatch/model/history.dart';
 
 import '../database.dart';
 import '../table.dart';
