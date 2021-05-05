@@ -10,6 +10,7 @@ class HistoryRepository {
 
   HistoryRepository(this._database);
 
+  // TODO AppTables을 의존하고 있는 곳이 있다.
   Future<Table<History>> getTable() async {
     if (_table == null) {
       final table = await _database.getTable<History>(AppTables.history);
