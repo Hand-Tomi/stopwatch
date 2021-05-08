@@ -22,6 +22,7 @@ class StopwatchPageCreator {
         create: (context) => StopwatchBloc(
           stopwatch: Stopwatch(),
           replcator: Replicator(_updateInterval),
+          historyRepository: context.read(),
         ),
       ),
       BlocProvider<LapsBloc>(

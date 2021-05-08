@@ -24,8 +24,19 @@ class HistoryRepository {
     return _table.getValues();
   }
 
-  Future<void> addHistory(History history) async {
+  Future<void> saveHistory(String key, History history) async {
     final table = await getTable();
-    await table.add(history);
+    await table.put(key, history);
   }
+
+  String createNextKey() {
+    return _currentMsec().hashCode.toString();
+  }
+
+  History createHistory(int msec) {
+    final now = DateTime.now();
+    return History(msec, now);
+  }
+
+  int _currentMsec() => DateTime.now().millisecondsSinceEpoch;
 }
