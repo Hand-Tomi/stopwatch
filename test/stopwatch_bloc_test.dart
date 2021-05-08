@@ -4,33 +4,36 @@ import 'package:mockito/mockito.dart';
 import 'package:stopwatch/bloc/stopwatch/stopwatch_bloc.dart';
 import 'package:stopwatch/bloc/stopwatch/stopwatch_event.dart';
 import 'package:stopwatch/bloc/stopwatch/stopwatch_state.dart';
+import 'package:stopwatch/repository/history_repository.dart';
 import 'package:stopwatch/util/replicator.dart';
 import 'package:mockito/annotations.dart';
 
 import 'stopwatch_bloc_test.mocks.dart';
 
-@GenerateMocks([Stopwatch, Replicator])
+@GenerateMocks([Stopwatch, Replicator, HistoryRepository])
 void main() {
   late StopwatchBloc bloc;
   late MockStopwatch mockStopwatch;
   late MockReplicator mockReplicator;
+  late MockHistoryRepository mockHistoryRepository;
 
   setUp(() {
     mockStopwatch = MockStopwatch();
     mockReplicator = MockReplicator();
+    mockHistoryRepository = MockHistoryRepository();
+    when(mockHistoryRepository.createNextKey()).thenReturn("dummyKey");
+    when(mockStopwatch.elapsedMilliseconds).thenReturn(0);
     bloc = StopwatchBloc(
       stopwatch: mockStopwatch,
       replcator: mockReplicator,
+      historyRepository: mockHistoryRepository,
     );
   });
 
   group('StopwatchBloc', () {
     blocTest<StopwatchBloc, StopwatchState>(
       'started',
-      build: () {
-        when(mockStopwatch.elapsedMilliseconds).thenReturn(0);
-        return bloc;
-      },
+      build: () => bloc,
       act: (bloc) => bloc.add(StopwatchStarted()),
       wait: Duration(milliseconds: 50),
       expect: () => const <StopwatchState>[StopwatchPlaying(0)],
@@ -42,10 +45,7 @@ void main() {
 
     blocTest<StopwatchBloc, StopwatchState>(
       'paused',
-      build: () {
-        when(mockStopwatch.elapsedMilliseconds).thenReturn(0);
-        return bloc;
-      },
+      build: () => bloc,
       act: (bloc) => bloc.add(StopwatchPaused()),
       wait: Duration(milliseconds: 50),
       expect: () => const <StopwatchState>[StopwatchPausing(0)],

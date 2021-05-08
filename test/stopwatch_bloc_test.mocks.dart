@@ -2,13 +2,22 @@
 // in stopwatch/test/stopwatch_bloc_test.dart.
 // Do not manually edit this file.
 
+import 'dart:async' as _i6;
+
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:stopwatch/util/replicator.dart' as _i2;
+import 'package:stopwatch/database/table.dart' as _i2;
+import 'package:stopwatch/model/history.dart' as _i3;
+import 'package:stopwatch/repository/history_repository.dart' as _i5;
+import 'package:stopwatch/util/replicator.dart' as _i4;
 
 // ignore_for_file: comment_references
 // ignore_for_file: unnecessary_parenthesis
 
 class _FakeDuration extends _i1.Fake implements Duration {}
+
+class _FakeTable<T> extends _i1.Fake implements _i2.Table<T> {}
+
+class _FakeHistory extends _i1.Fake implements _i3.History {}
 
 /// A class which mocks [Stopwatch].
 ///
@@ -55,7 +64,7 @@ class MockStopwatch extends _i1.Mock implements Stopwatch {
 /// A class which mocks [Replicator].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockReplicator extends _i1.Mock implements _i2.Replicator {
+class MockReplicator extends _i1.Mock implements _i4.Replicator {
   MockReplicator() {
     _i1.throwOnMissingStub(this);
   }
@@ -67,4 +76,38 @@ class MockReplicator extends _i1.Mock implements _i2.Replicator {
   @override
   void stop() => super.noSuchMethod(Invocation.method(#stop, []),
       returnValueForMissingStub: null);
+}
+
+/// A class which mocks [HistoryRepository].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockHistoryRepository extends _i1.Mock implements _i5.HistoryRepository {
+  MockHistoryRepository() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i6.Future<_i2.Table<_i3.History>> getTable() => (super.noSuchMethod(
+          Invocation.method(#getTable, []),
+          returnValue:
+              Future<_i2.Table<_i3.History>>.value(_FakeTable<_i3.History>()))
+      as _i6.Future<_i2.Table<_i3.History>>);
+  @override
+  _i6.Future<Iterable<_i3.History>> getHistorys() =>
+      (super.noSuchMethod(Invocation.method(#getHistorys, []),
+              returnValue: Future<Iterable<_i3.History>>.value([]))
+          as _i6.Future<Iterable<_i3.History>>);
+  @override
+  _i6.Future<void> saveHistory(String? key, _i3.History? history) =>
+      (super.noSuchMethod(Invocation.method(#saveHistory, [key, history]),
+          returnValue: Future<void>.value(null),
+          returnValueForMissingStub: Future.value()) as _i6.Future<void>);
+  @override
+  String createNextKey() => (super
+          .noSuchMethod(Invocation.method(#createNextKey, []), returnValue: '')
+      as String);
+  @override
+  _i3.History createHistory(int? msec) =>
+      (super.noSuchMethod(Invocation.method(#createHistory, [msec]),
+          returnValue: _FakeHistory()) as _i3.History);
 }
