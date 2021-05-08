@@ -10,5 +10,8 @@ class TableImpl<T> extends Table<T> {
   Future<int> add(value) => box.add(value);
 
   @override
+  Future<void> put(key, value) => box.put(key, value);
+
+  @override
   Iterable<T> getValues() => box.values;
 }
