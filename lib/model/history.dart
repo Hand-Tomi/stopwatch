@@ -11,4 +11,11 @@ class History extends HiveObject {
   final DateTime savedAt;
 
   History(this.msec, this.savedAt);
+
+  // 버그가 있어 `EquatableMixin`을 사용하면 테스트에서 에러가 발생하고 있어,
+  // 임시로 이 함수를 이용해 비교하도록 한다.
+  // https://github.com/felangel/equatable/issues/115
+  bool isSame(History history) {
+    return this.msec == history.msec && this.savedAt == history.savedAt;
+  }
 }
