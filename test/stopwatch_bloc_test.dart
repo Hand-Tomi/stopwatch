@@ -17,13 +17,15 @@ void main() {
   late MockStopwatch mockStopwatch;
   late MockReplicator mockReplicator;
   late MockHistoryRepository mockHistoryRepository;
-  String _dummyHistoryKey = "dummyHistoryKey";
+  final _baseDummyHistoryKeys = ['first key', 'second key', 'thirdly'];
 
   setUp(() {
     mockStopwatch = MockStopwatch();
     mockReplicator = MockReplicator();
     mockHistoryRepository = MockHistoryRepository();
-    when(mockHistoryRepository.createNextKey()).thenReturn(_dummyHistoryKey);
+    final _dummyHistoryKeys = [..._baseDummyHistoryKeys];
+    when(mockHistoryRepository.createNextKey())
+        .thenAnswer((_) => _dummyHistoryKeys.removeAt(0));
     when(mockStopwatch.elapsedMilliseconds).thenReturn(0);
     bloc = StopwatchBloc(
       stopwatch: mockStopwatch,
@@ -107,7 +109,7 @@ void main() {
           [
             mockHistoryRepository.createNextKey(),
             mockHistoryRepository.saveHistory(
-              argThat(contains(_dummyHistoryKey)),
+              argThat(contains(_baseDummyHistoryKeys[0])),
               argThat(predicate<History>((history) {
                 return history.isSame(History(0, dummyDateTime));
               })),
@@ -143,7 +145,103 @@ void main() {
           [
             mockHistoryRepository.createNextKey(),
             mockHistoryRepository.saveHistory(
-              argThat(contains(_dummyHistoryKey)),
+              argThat(contains(_baseDummyHistoryKeys[0])),
+              argThat(predicate<History>((history) {
+                return history.isSame(History(0, dummyDateTime));
+              })),
+            ),
+          ],
+        );
+      },
+    );
+
+    blocTest<StopwatchBloc, StopwatchState>(
+      'History 저장 테스트 started -> ticked -> paused -> started -> reset',
+      build: () {
+        when(mockHistoryRepository.createHistory(any))
+            .thenAnswer((realInvocation) {
+          final msec = realInvocation.positionalArguments[0] as int;
+          return History(msec, dummyDateTime);
+        });
+        return bloc;
+      },
+      act: (bloc) {
+        bloc.add(StopwatchStarted());
+        bloc.add(StopwatchTicked(10));
+        bloc.add(StopwatchPaused());
+        bloc.add(StopwatchStarted());
+        bloc.add(StopwatchReset());
+      },
+      wait: Duration(milliseconds: 50),
+      expect: () => const <StopwatchState>[
+        StopwatchPlaying(0),
+        StopwatchPlaying(10),
+        StopwatchPausing(0),
+        StopwatchPlaying(0),
+        StopwatchInitial(),
+      ],
+      verify: (_) {
+        // reset후에 다시 started하지 않으면 새로운 키(historyKey)로 저장하지 않는다.
+        verifyNever(
+          mockHistoryRepository.saveHistory(
+            argThat(contains(_baseDummyHistoryKeys[1])),
+            argThat(predicate<History>((history) {
+              return history.isSame(History(0, dummyDateTime));
+            })),
+          ),
+        );
+        verifyInOrder(
+          [
+            mockHistoryRepository.createNextKey(),
+            mockHistoryRepository.saveHistory(
+              argThat(contains(_baseDummyHistoryKeys[0])),
+              argThat(predicate<History>((history) {
+                return history.isSame(History(0, dummyDateTime));
+              })),
+            ),
+          ],
+        );
+      },
+    );
+
+    blocTest<StopwatchBloc, StopwatchState>(
+      'History 2개 저장 테스트 started -> paused -> reset -> started -> paused',
+      build: () {
+        when(mockHistoryRepository.createHistory(any))
+            .thenAnswer((realInvocation) {
+          final msec = realInvocation.positionalArguments[0] as int;
+          return History(msec, dummyDateTime);
+        });
+        return bloc;
+      },
+      act: (bloc) {
+        bloc.add(StopwatchStarted());
+        bloc.add(StopwatchPaused());
+        bloc.add(StopwatchReset());
+        bloc.add(StopwatchStarted());
+        bloc.add(StopwatchPaused());
+      },
+      wait: Duration(milliseconds: 50),
+      expect: () => const <StopwatchState>[
+        StopwatchPlaying(0),
+        StopwatchPausing(0),
+        StopwatchInitial(),
+        StopwatchPlaying(0),
+        StopwatchPausing(0),
+      ],
+      verify: (_) {
+        verifyInOrder(
+          [
+            mockHistoryRepository.createNextKey(),
+            mockHistoryRepository.saveHistory(
+              argThat(contains(_baseDummyHistoryKeys[0])),
+              argThat(predicate<History>((history) {
+                return history.isSame(History(0, dummyDateTime));
+              })),
+            ),
+            mockHistoryRepository.createNextKey(),
+            mockHistoryRepository.saveHistory(
+              argThat(contains(_baseDummyHistoryKeys[1])),
               argThat(predicate<History>((history) {
                 return history.isSame(History(0, dummyDateTime));
               })),
