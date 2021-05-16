@@ -10,25 +10,29 @@ class StopwatchLapsTable extends StatelessWidget {
     return Expanded(
       child: BlocBuilder<LapsBloc, List<Lap>>(
         builder: (context, state) {
+          final columnTextStyle = Theme.of(context)
+              .textTheme
+              .subtitle2
+              ?.copyWith(fontStyle: FontStyle.italic);
           return SingleChildScrollView(
             child: DataTable(
-              columns: const <DataColumn>[
+              columns: <DataColumn>[
                 DataColumn(
                   label: Text(
                     'Lap',
-                    style: TextStyle(fontStyle: FontStyle.italic),
+                    style: columnTextStyle,
                   ),
                 ),
                 DataColumn(
                   label: Text(
                     'Lap Times',
-                    style: TextStyle(fontStyle: FontStyle.italic),
+                    style: columnTextStyle,
                   ),
                 ),
                 DataColumn(
                   label: Text(
                     'Split Time',
-                    style: TextStyle(fontStyle: FontStyle.italic),
+                    style: columnTextStyle,
                   ),
                 ),
               ],

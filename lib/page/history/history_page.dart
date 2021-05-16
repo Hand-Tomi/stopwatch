@@ -39,7 +39,7 @@ class HistoryPage extends StatelessWidget {
       elements: historys,
       groupBy: (element) => element.savedAt.toDateString(),
       groupSeparatorBuilder: (value) => createGroupSeparator(context, value),
-      itemBuilder: (context, element) => createSlidableTile(element),
+      itemBuilder: (context, element) => createSlidableTile(context, element),
       itemComparator: (element1, element2) =>
           element1.savedAt.compareTo(element2.savedAt),
       separator: ListDivider(),
@@ -51,28 +51,33 @@ class HistoryPage extends StatelessWidget {
     return Align(
       alignment: Alignment.topLeft,
       child: Container(
-        child: Text(title,
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+        child: Text(
+          title,
+          style: Theme.of(context).textTheme.bodyText2,
+        ),
         padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
       ),
     );
   }
 
-  Widget createSlidableTile(History history) {
+  Widget createSlidableTile(BuildContext context, History history) {
     return Slidable(
       actionPane: SlidableDrawerActionPane(),
       actions: [createDeleteAction()],
-      child: createTile(history),
+      child: createTile(context, history),
     );
   }
 
-  Widget createTile(History history) {
+  Widget createTile(BuildContext context, History history) {
     return ListTile(
       title: Text(history.msec.parseDisplayTime()),
-      leading: Icon(Icons.timer),
+      leading: Padding(
+        padding: const EdgeInsets.fromLTRB(8, 0, 0, 0),
+        child: Icon(Icons.timer),
+      ),
       subtitle: Text(
         history.savedAt.toDateTimeString(),
-        style: TextStyle(fontSize: 12, color: Color(0xff999999)),
+        style: Theme.of(context).textTheme.caption,
       ),
       trailing: Icon(Icons.chevron_right),
     );
@@ -81,7 +86,7 @@ class HistoryPage extends StatelessWidget {
   Widget createDeleteAction() {
     return IconSlideAction(
       caption: 'Delete',
-      color: Colors.black,
+      color: Colors.red,
       icon: Icons.delete,
       onTap: () => print('Delete'),
     );

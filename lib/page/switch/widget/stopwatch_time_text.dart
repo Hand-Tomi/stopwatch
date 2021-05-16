@@ -9,10 +9,10 @@ class StopwatchTimeText extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 60.0, bottom: 30.0),
       child: BlocBuilder<StopwatchBloc, StopwatchState>(
-        builder: (conteseaxt, state) {
+        builder: (context, state) {
           return Text(
             state.msec.parseDisplayTime(),
-            style: TextStyle(fontSize: 70.0),
+            style: Theme.of(context).textTheme.headline1,
           );
         },
       ),
