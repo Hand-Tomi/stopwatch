@@ -5,6 +5,7 @@ import 'package:stopwatch/model/history.dart';
 import 'package:stopwatch/repository/history_repository.dart';
 import 'package:stopwatch/util/date_time_extensions.dart';
 import 'package:stopwatch/util/msec_extensions.dart';
+import 'package:stopwatch/widget/list_divider.dart';
 
 class HistoryPage extends StatelessWidget {
   final String pageTitle = 'History';
@@ -29,6 +30,7 @@ class HistoryPage extends StatelessWidget {
                 itemBuilder: (context, element) => createTile(element),
                 itemComparator: (element1, element2) =>
                     element1.savedAt.compareTo(element2.savedAt),
+                separator: ListDivider(),
                 order: GroupedListOrder.DESC,
               );
             } else {

@@ -5,6 +5,7 @@ class AppTheme {
     return ThemeData(
       primaryColor: const Color(0xFFA64962),
       accentColor: const Color(0xFF1D2526),
+      dividerColor: const Color(0xffCCCCCC),
     );
   }
 }
