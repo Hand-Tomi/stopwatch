@@ -23,23 +23,27 @@ class HistoryPage extends StatelessWidget {
           future: repository.getHistorys(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return GroupedListView<History, String>(
-                elements: snapshot.data!.toList(),
-                groupBy: (element) => element.savedAt.toDateString(),
-                groupSeparatorBuilder: (value) =>
-                    createGroupSeparator(context, value),
-                itemBuilder: (context, element) => createSlidableTile(element),
-                itemComparator: (element1, element2) =>
-                    element1.savedAt.compareTo(element2.savedAt),
-                separator: ListDivider(),
-                order: GroupedListOrder.DESC,
-              );
+              final historyList = snapshot.data!.toList();
+              return createGroupListView(context, historyList);
             } else {
               return Container();
             }
           },
         ),
       ),
+    );
+  }
+
+  Widget createGroupListView(BuildContext context, List<History> historys) {
+    return GroupedListView<History, String>(
+      elements: historys,
+      groupBy: (element) => element.savedAt.toDateString(),
+      groupSeparatorBuilder: (value) => createGroupSeparator(context, value),
+      itemBuilder: (context, element) => createSlidableTile(element),
+      itemComparator: (element1, element2) =>
+          element1.savedAt.compareTo(element2.savedAt),
+      separator: ListDivider(),
+      order: GroupedListOrder.DESC,
     );
   }
 
