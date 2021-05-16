@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:stopwatch/model/history.dart';
@@ -27,7 +28,7 @@ class HistoryPage extends StatelessWidget {
                 groupBy: (element) => element.savedAt.toDateString(),
                 groupSeparatorBuilder: (value) =>
                     createGroupSeparator(context, value),
-                itemBuilder: (context, element) => createTile(element),
+                itemBuilder: (context, element) => createSlidableTile(element),
                 itemComparator: (element1, element2) =>
                     element1.savedAt.compareTo(element2.savedAt),
                 separator: ListDivider(),
@@ -53,18 +54,32 @@ class HistoryPage extends StatelessWidget {
     );
   }
 
+  Widget createSlidableTile(History history) {
+    return Slidable(
+      actionPane: SlidableDrawerActionPane(),
+      actions: [createDeleteAction()],
+      child: createTile(history),
+    );
+  }
+
   Widget createTile(History history) {
-    return Card(
-      margin: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-      child: ListTile(
-        title: Text(history.msec.parseDisplayTime()),
-        leading: Icon(Icons.timer),
-        subtitle: Text(
-          history.savedAt.toDateTimeString(),
-          style: TextStyle(fontSize: 12),
-        ),
-        trailing: Icon(Icons.chevron_right),
+    return ListTile(
+      title: Text(history.msec.parseDisplayTime()),
+      leading: Icon(Icons.timer),
+      subtitle: Text(
+        history.savedAt.toDateTimeString(),
+        style: TextStyle(fontSize: 12, color: Color(0xff999999)),
       ),
+      trailing: Icon(Icons.chevron_right),
+    );
+  }
+
+  Widget createDeleteAction() {
+    return IconSlideAction(
+      caption: 'Delete',
+      color: Colors.black,
+      icon: Icons.delete,
+      onTap: () => print('Delete'),
     );
   }
 }
