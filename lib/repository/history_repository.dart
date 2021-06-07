@@ -24,7 +24,7 @@ class HistoryRepository {
     return _table.getValues();
   }
 
-  Future<void> saveHistory(String key, History history) async {
+  Future<void> putHistory(String key, History history) async {
     final table = await getTable();
     await table.put(key, history);
   }

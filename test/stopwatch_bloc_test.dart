@@ -108,7 +108,7 @@ void main() {
         verifyInOrder(
           [
             mockHistoryRepository.createNextKey(),
-            mockHistoryRepository.saveHistory(
+            mockHistoryRepository.putHistory(
               argThat(contains(_baseDummyHistoryKeys[0])),
               argThat(predicate<History>((history) {
                 return history.isSame(History(0, dummyDateTime));
@@ -144,7 +144,7 @@ void main() {
         verifyInOrder(
           [
             mockHistoryRepository.createNextKey(),
-            mockHistoryRepository.saveHistory(
+            mockHistoryRepository.putHistory(
               argThat(contains(_baseDummyHistoryKeys[0])),
               argThat(predicate<History>((history) {
                 return history.isSame(History(0, dummyDateTime));
@@ -183,7 +183,7 @@ void main() {
       verify: (_) {
         // reset후에 다시 started하지 않으면 새로운 키(historyKey)로 저장하지 않는다.
         verifyNever(
-          mockHistoryRepository.saveHistory(
+          mockHistoryRepository.putHistory(
             argThat(contains(_baseDummyHistoryKeys[1])),
             argThat(predicate<History>((history) {
               return history.isSame(History(0, dummyDateTime));
@@ -193,7 +193,7 @@ void main() {
         verifyInOrder(
           [
             mockHistoryRepository.createNextKey(),
-            mockHistoryRepository.saveHistory(
+            mockHistoryRepository.putHistory(
               argThat(contains(_baseDummyHistoryKeys[0])),
               argThat(predicate<History>((history) {
                 return history.isSame(History(0, dummyDateTime));
@@ -233,14 +233,14 @@ void main() {
         verifyInOrder(
           [
             mockHistoryRepository.createNextKey(),
-            mockHistoryRepository.saveHistory(
+            mockHistoryRepository.putHistory(
               argThat(contains(_baseDummyHistoryKeys[0])),
               argThat(predicate<History>((history) {
                 return history.isSame(History(0, dummyDateTime));
               })),
             ),
             mockHistoryRepository.createNextKey(),
-            mockHistoryRepository.saveHistory(
+            mockHistoryRepository.putHistory(
               argThat(contains(_baseDummyHistoryKeys[1])),
               argThat(predicate<History>((history) {
                 return history.isSame(History(0, dummyDateTime));

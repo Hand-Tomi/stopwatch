@@ -94,6 +94,6 @@ class StopwatchBloc extends Bloc<StopwatchEvent, StopwatchState> {
 
   void _saveHistory(String key, int msec) {
     final history = _historyRepository.createHistory(msec);
-    _historyRepository.saveHistory(key, history);
+    _historyRepository.putHistory(key, history);
   }
 }

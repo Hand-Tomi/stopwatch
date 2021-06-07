@@ -98,8 +98,8 @@ class MockHistoryRepository extends _i1.Mock implements _i5.HistoryRepository {
               returnValue: Future<Iterable<_i3.History>>.value([]))
           as _i6.Future<Iterable<_i3.History>>);
   @override
-  _i6.Future<void> saveHistory(String? key, _i3.History? history) =>
-      (super.noSuchMethod(Invocation.method(#saveHistory, [key, history]),
+  _i6.Future<void> putHistory(String? key, _i3.History? history) =>
+      (super.noSuchMethod(Invocation.method(#putHistory, [key, history]),
           returnValue: Future<void>.value(null),
           returnValueForMissingStub: Future.value()) as _i6.Future<void>);
   @override
