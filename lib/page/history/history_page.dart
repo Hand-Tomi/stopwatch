@@ -1,36 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:provider/provider.dart';
 import 'package:grouped_list/grouped_list.dart';
+import 'package:stopwatch/bloc/history/history.dart';
 import 'package:stopwatch/model/history.dart';
-import 'package:stopwatch/repository/history_repository.dart';
 import 'package:stopwatch/util/date_time_extensions.dart';
 import 'package:stopwatch/util/msec_extensions.dart';
 import 'package:stopwatch/widget/list_divider.dart';
 
-class HistoryPage extends StatelessWidget {
+class HistoryPage extends StatefulWidget {
+  const HistoryPage({Key? key}) : super(key: key);
+
+  @override
+  _HistoryPageState createState() => _HistoryPageState();
+}
+
+class _HistoryPageState extends State<HistoryPage> {
   final String pageTitle = 'History';
+  late final HistoryBloc bloc = BlocProvider.of<HistoryBloc>(context);
+
+  @override
+  void initState() {
+    super.initState();
+    bloc.add(HistoryFetched());
+  }
 
   @override
   Widget build(BuildContext context) {
-    final repository = context.read<HistoryRepository>();
     return Scaffold(
       appBar: AppBar(
         title: Text(pageTitle),
       ),
-      body: SafeArea(
-        child: FutureBuilder<Iterable<History>>(
-          future: repository.getHistorys(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              final historyList = snapshot.data!.toList();
-              return createGroupListView(context, historyList);
-            } else {
+      body: SafeArea(child: BlocBuilder<HistoryBloc, HistoryState>(
+        builder: (context, state) {
+          switch (state.runtimeType) {
+            case HistoryLoaded:
+              final historys = (state as HistoryLoaded).historys;
+              return createGroupListView(context, historys);
+            default:
               return Container();
-            }
-          },
-        ),
-      ),
+          }
+        },
+      )),
     );
   }
 
