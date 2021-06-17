@@ -38,5 +38,10 @@ class HistoryRepository {
     return History(msec, now);
   }
 
+  Future<void> deleteHistory(dynamic key) async {
+    final table = await getTable();
+    table.delete(key);
+  }
+
   int _currentMsec() => DateTime.now().millisecondsSinceEpoch;
 }

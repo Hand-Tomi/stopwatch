@@ -12,3 +12,12 @@ class HistoryFetched extends HistoryEvent {
   @override
   List<Object> get props => [];
 }
+
+class HistoryDeleted extends HistoryEvent {
+  final dynamic key;
+
+  const HistoryDeleted(this.key);
+
+  @override
+  List<Object> get props => [];
+}

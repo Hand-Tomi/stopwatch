@@ -37,6 +37,9 @@ class _HistoryPageState extends State<HistoryPage> {
             case HistoryLoaded:
               final historys = (state as HistoryLoaded).historys;
               return createGroupListView(context, historys);
+            case HistoryLoaded:
+              final historys = (state as HistoryLoaded).historys;
+              return createGroupListView(context, historys);
             default:
               return Container();
           }
@@ -74,7 +77,7 @@ class _HistoryPageState extends State<HistoryPage> {
   Widget createSlidableTile(BuildContext context, History history) {
     return Slidable(
       actionPane: SlidableDrawerActionPane(),
-      actions: [createDeleteAction()],
+      actions: [createDeleteAction(history)],
       child: createTile(context, history),
     );
   }
@@ -94,12 +97,16 @@ class _HistoryPageState extends State<HistoryPage> {
     );
   }
 
-  Widget createDeleteAction() {
+  Widget createDeleteAction(History history) {
     return IconSlideAction(
       caption: 'Delete',
       color: Colors.red,
       icon: Icons.delete,
-      onTap: () => print('Delete'),
+      onTap: () => _deleteHistory(history),
     );
+  }
+
+  void _deleteHistory(History history) {
+    bloc.add(HistoryDeleted(history.key));
   }
 }
