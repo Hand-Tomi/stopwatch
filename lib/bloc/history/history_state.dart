@@ -12,9 +12,9 @@ class HistoryInitial extends HistoryState {
   const HistoryInitial() : super();
 }
 
-class HistoryLoaded extends HistoryState {
+class HistoryLoading extends HistoryState {
   final List<History> historys;
-  const HistoryLoaded(this.historys) : super();
+  const HistoryLoading(this.historys) : super();
 
   @override
   List<Object> get props => [historys];

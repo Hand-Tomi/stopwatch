@@ -23,13 +23,13 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
 
   Stream<HistoryState> _mapHistoryFetchedToState() async* {
     final historys = await _getHistorys();
-    yield HistoryLoaded(historys);
+    yield HistoryLoading(historys);
   }
 
   Stream<HistoryState> _mapHistoryDeletedToState(dynamic key) async* {
     _historyRepository.deleteHistory(key);
     final historys = await _getHistorys();
-    yield HistoryLoaded(historys);
+    yield HistoryLoading(historys);
   }
 
   Future<List<History>> _getHistorys() async {

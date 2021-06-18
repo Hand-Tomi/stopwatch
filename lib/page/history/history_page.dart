@@ -34,11 +34,11 @@ class _HistoryPageState extends State<HistoryPage> {
       body: SafeArea(child: BlocBuilder<HistoryBloc, HistoryState>(
         builder: (context, state) {
           switch (state.runtimeType) {
-            case HistoryLoaded:
-              final historys = (state as HistoryLoaded).historys;
+            case HistoryLoading:
+              final historys = (state as HistoryLoading).historys;
               return createGroupListView(context, historys);
-            case HistoryLoaded:
-              final historys = (state as HistoryLoaded).historys;
+            case HistoryLoading:
+              final historys = (state as HistoryLoading).historys;
               return createGroupListView(context, historys);
             default:
               return Container();
