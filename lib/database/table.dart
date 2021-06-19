@@ -3,4 +3,5 @@ abstract class Table<T> {
   Future<void> put(String key, T value);
   Iterable<T> getValues();
   Future<void> delete(dynamic key);
+  T? get(dynamic key);
 }

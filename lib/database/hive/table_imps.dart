@@ -17,4 +17,7 @@ class TableImpl<T> extends Table<T> {
 
   @override
   Iterable<T> getValues() => box.values;
+
+  @override
+  T? get(key) => box.get(key);
 }

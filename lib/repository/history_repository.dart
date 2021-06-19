@@ -24,6 +24,11 @@ class HistoryRepository {
     return _table.getValues();
   }
 
+  Future<History?> getHistory(dynamic key) async {
+    final table = await getTable();
+    return table.get(key);
+  }
+
   Future<void> putHistory(String key, History history) async {
     final table = await getTable();
     await table.put(key, history);
