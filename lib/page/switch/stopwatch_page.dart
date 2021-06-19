@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:stopwatch/bloc/laps/laps.dart';
 import 'package:stopwatch/bloc/stopwatch_notification/stopwatch_notification_bloc.dart';
 import 'package:stopwatch/page/switch/drawer_list.dart';
 import 'package:stopwatch/page/switch/widget/stopwatch_joystick.dart';
-import 'package:stopwatch/page/switch/widget/stopwatch_laps_table.dart';
 import 'package:stopwatch/page/switch/widget/stopwatch_time_text.dart';
+import 'package:stopwatch/page/widget/laps_table.dart';
 
 import '../../bloc/stopwatch/stopwatch.dart';
 import '../../bloc/stopwatch_notification/stopwatch_notification.dart';
@@ -19,6 +20,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
 
   @override
   Widget build(BuildContext context) {
+    final streamLaps = context.read<LapsBloc>().stream;
     return BlocListener<StopwatchBloc, StopwatchState>(
       listener: _passingStateWithStopwatchNotification,
       child: Scaffold(
@@ -35,7 +37,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 StopwatchTimeText(),
-                StopwatchLapsTable(),
+                LapsTable(streamLaps),
                 StopwatchJoystick(),
               ],
             ),
