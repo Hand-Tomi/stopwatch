@@ -44,4 +44,18 @@ class HistoryRepository {
   }
 
   int _currentMsec() => DateTime.now().millisecondsSinceEpoch;
+
+  String? currentKey;
+
+  String? getCurrentKey() {
+    return currentKey;
+  }
+
+  void renewCurrentKey() {
+    currentKey = createNextKey();
+  }
+
+  void clearCurrentKey() {
+    currentKey = null;
+  }
 }
