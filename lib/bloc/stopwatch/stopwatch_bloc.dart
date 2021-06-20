@@ -40,6 +40,7 @@ class StopwatchBloc extends Bloc<StopwatchEvent, StopwatchState> {
 
   Stream<StopwatchState> _mapStopwatchStartedToState() async* {
     renewHistoryKeyIfNotExists();
+    saveInitialHistory();
     _stopwatch.start();
     yield StopwatchPlaying(_stopwatchMsec());
     _replcator.start(_updateTime);
@@ -82,6 +83,10 @@ class StopwatchBloc extends Bloc<StopwatchEvent, StopwatchState> {
 
   void clearHistoryKey() {
     _historyRepository.clearCurrentKey();
+  }
+
+  void saveInitialHistory() {
+    saveHistoryIfKeyExists(0);
   }
 
   void saveHistoryIfKeyExists(int msec) {

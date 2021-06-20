@@ -2,6 +2,7 @@ import 'package:stopwatch/core/app_tables.dart';
 import 'package:stopwatch/database/database.dart';
 import 'package:stopwatch/database/table.dart';
 import 'package:stopwatch/model/history.dart';
+import 'package:stopwatch/model/lap.dart';
 
 class HistoryRepository {
   final Database _database;
@@ -62,5 +63,13 @@ class HistoryRepository {
 
   void clearCurrentKey() {
     currentKey = null;
+  }
+
+  Future<void> saveLapsToCurrentHistory(List<Lap> laps) async {
+    if (currentKey == null) throw NullThrownError();
+    final history = await getHistory(currentKey);
+    if (history == null) throw NullThrownError();
+    history.laps = laps;
+    putHistory(currentKey!, history);
   }
 }

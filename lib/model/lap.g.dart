@@ -1,37 +1,38 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'history.dart';
+part of 'lap.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class HistoryAdapter extends TypeAdapter<History> {
+class LapAdapter extends TypeAdapter<Lap> {
   @override
-  final int typeId = 1;
+  final int typeId = 2;
 
   @override
-  History read(BinaryReader reader) {
+  Lap read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return History(
+    return Lap(
       fields[0] as int,
-      fields[1] as DateTime,
-    )..laps = (fields[2] as List?)?.cast<Lap>();
+      fields[1] as int,
+      fields[2] as int,
+    );
   }
 
   @override
-  void write(BinaryWriter writer, History obj) {
+  void write(BinaryWriter writer, Lap obj) {
     writer
       ..writeByte(3)
       ..writeByte(0)
-      ..write(obj.msec)
+      ..write(obj.lap)
       ..writeByte(1)
-      ..write(obj.savedAt)
+      ..write(obj.lapTime)
       ..writeByte(2)
-      ..write(obj.laps);
+      ..write(obj.splitTime);
   }
 
   @override
@@ -40,7 +41,7 @@ class HistoryAdapter extends TypeAdapter<History> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is HistoryAdapter &&
+      other is LapAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

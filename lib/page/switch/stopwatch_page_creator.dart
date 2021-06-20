@@ -26,7 +26,7 @@ class StopwatchPageCreator {
         ),
       ),
       BlocProvider<LapsBloc>(
-        create: (context) => LapsBloc(),
+        create: (context) => LapsBloc(context.read()),
       ),
       BlocProvider<StopwatchNotificationBloc>(create: (context) {
         final notificationHelper = context.read<NotificationHelper>();
