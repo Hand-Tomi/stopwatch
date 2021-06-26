@@ -32,6 +32,6 @@ class LapsBloc extends Bloc<LapsEvent, List<Lap>> {
   }
 
   Future<void> _saveLaps(List<Lap> laps) async {
-    _historyRepository.saveLapsToCurrentHistory(laps);
+    _historyRepository.overwriteLapsInCurrentHistory(laps);
   }
 }

@@ -7,6 +7,7 @@ import 'dart:async' as _i6;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:stopwatch/database/table.dart' as _i2;
 import 'package:stopwatch/model/history.dart' as _i3;
+import 'package:stopwatch/model/lap.dart' as _i7;
 import 'package:stopwatch/repository/history_repository.dart' as _i5;
 import 'package:stopwatch/util/replicator.dart' as _i4;
 
@@ -87,6 +88,10 @@ class MockHistoryRepository extends _i1.Mock implements _i5.HistoryRepository {
   }
 
   @override
+  set currentKey(String? _currentKey) =>
+      super.noSuchMethod(Invocation.setter(#currentKey, _currentKey),
+          returnValueForMissingStub: null);
+  @override
   _i6.Future<_i2.Table<_i3.History>> getTable() => (super.noSuchMethod(
           Invocation.method(#getTable, []),
           returnValue:
@@ -97,6 +102,11 @@ class MockHistoryRepository extends _i1.Mock implements _i5.HistoryRepository {
       (super.noSuchMethod(Invocation.method(#getHistorys, []),
               returnValue: Future<Iterable<_i3.History>>.value([]))
           as _i6.Future<Iterable<_i3.History>>);
+  @override
+  _i6.Future<_i3.History?> getHistory(dynamic key) =>
+      (super.noSuchMethod(Invocation.method(#getHistory, [key]),
+              returnValue: Future<_i3.History?>.value(_FakeHistory()))
+          as _i6.Future<_i3.History?>);
   @override
   _i6.Future<void> putHistory(String? key, _i3.History? history) =>
       (super.noSuchMethod(Invocation.method(#putHistory, [key, history]),
@@ -110,4 +120,32 @@ class MockHistoryRepository extends _i1.Mock implements _i5.HistoryRepository {
   _i3.History createHistory(int? msec) =>
       (super.noSuchMethod(Invocation.method(#createHistory, [msec]),
           returnValue: _FakeHistory()) as _i3.History);
+  @override
+  _i6.Future<void> deleteHistory(dynamic key) =>
+      (super.noSuchMethod(Invocation.method(#deleteHistory, [key]),
+          returnValue: Future<void>.value(null),
+          returnValueForMissingStub: Future.value()) as _i6.Future<void>);
+  @override
+  void renewCurrentHistory() =>
+      super.noSuchMethod(Invocation.method(#renewCurrentHistory, []),
+          returnValueForMissingStub: null);
+  @override
+  void clearCurrentHistory() =>
+      super.noSuchMethod(Invocation.method(#clearCurrentHistory, []),
+          returnValueForMissingStub: null);
+  @override
+  _i6.Future<void> overwriteLapsInCurrentHistory(List<_i7.Lap>? laps) => (super
+      .noSuchMethod(Invocation.method(#overwriteLapsInCurrentHistory, [laps]),
+          returnValue: Future<void>.value(null),
+          returnValueForMissingStub: Future.value()) as _i6.Future<void>);
+  @override
+  _i6.Future<void> overwriteTimesInCurrentHistory(int? msec) => (super
+      .noSuchMethod(Invocation.method(#overwriteTimesInCurrentHistory, [msec]),
+          returnValue: Future<void>.value(null),
+          returnValueForMissingStub: Future.value()) as _i6.Future<void>);
+  @override
+  _i6.Future<_i3.History?> getCurrentHistory() =>
+      (super.noSuchMethod(Invocation.method(#getCurrentHistory, []),
+              returnValue: Future<_i3.History?>.value(_FakeHistory()))
+          as _i6.Future<_i3.History?>);
 }

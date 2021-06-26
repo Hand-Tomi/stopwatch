@@ -19,7 +19,8 @@ class HistoryAdapter extends TypeAdapter<History> {
     return History(
       fields[0] as int,
       fields[1] as DateTime,
-    )..laps = (fields[2] as List?)?.cast<Lap>();
+      laps: (fields[2] as List?)?.cast<Lap>(),
+    );
   }
 
   @override

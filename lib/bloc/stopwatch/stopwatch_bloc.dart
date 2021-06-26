@@ -39,8 +39,7 @@ class StopwatchBloc extends Bloc<StopwatchEvent, StopwatchState> {
   }
 
   Stream<StopwatchState> _mapStopwatchStartedToState() async* {
-    renewHistoryKeyIfNotExists();
-    saveInitialHistory();
+    renewCurrentHistoryIfNotExists();
     _stopwatch.start();
     yield StopwatchPlaying(_stopwatchMsec());
     _replcator.start(_updateTime);
@@ -55,16 +54,17 @@ class StopwatchBloc extends Bloc<StopwatchEvent, StopwatchState> {
     _replcator.stop();
     _stopwatch.stop();
     final currentMsec = _stopwatchMsec();
-    saveHistoryIfKeyExists(currentMsec);
+    saveHistoryIfCurrentHistoryExists(currentMsec);
     yield StopwatchPausing(currentMsec);
   }
 
   Stream<StopwatchState> _mapStopwatchResetToState() async* {
-    saveHistoryIfKeyExists(_stopwatchMsec());
-    clearHistoryKey();
     _replcator.stop();
     _stopwatch.stop();
+    await saveHistoryIfCurrentHistoryExists(_stopwatchMsec());
+
     _stopwatch.reset();
+    clearHistoryKey();
     yield StopwatchInitial();
   }
 
@@ -75,29 +75,17 @@ class StopwatchBloc extends Bloc<StopwatchEvent, StopwatchState> {
 
   int _stopwatchMsec() => _stopwatch.elapsedMilliseconds;
 
-  void renewHistoryKeyIfNotExists() {
-    if (_historyRepository.getCurrentKey() == null) {
-      _historyRepository.renewCurrentKey();
+  void renewCurrentHistoryIfNotExists() {
+    if (_historyRepository.isCurrentHistory()) {
+      _historyRepository.renewCurrentHistory();
     }
   }
 
   void clearHistoryKey() {
-    _historyRepository.clearCurrentKey();
+    _historyRepository.clearCurrentHistory();
   }
 
-  void saveInitialHistory() {
-    saveHistoryIfKeyExists(0);
-  }
-
-  void saveHistoryIfKeyExists(int msec) {
-    final key = _historyRepository.getCurrentKey();
-    if (key != null) {
-      _saveHistory(key, msec);
-    }
-  }
-
-  void _saveHistory(String key, int msec) {
-    final history = _historyRepository.createHistory(msec);
-    _historyRepository.putHistory(key, history);
+  Future<void> saveHistoryIfCurrentHistoryExists(int msec) async {
+    await _historyRepository.overwriteTimesInCurrentHistory(msec);
   }
 }

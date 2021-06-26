@@ -30,46 +30,58 @@ class HistoryRepository {
     return table.get(key);
   }
 
-  Future<void> putHistory(String key, History history) async {
-    final table = await getTable();
-    await table.put(key, history);
-  }
-
-  String createNextKey() {
-    return _currentMsec().hashCode.toString();
-  }
-
-  History createHistory(int msec) {
-    final now = DateTime.now();
-    return History(msec, now);
-  }
-
   Future<void> deleteHistory(dynamic key) async {
     final table = await getTable();
     table.delete(key);
   }
 
-  int _currentMsec() => DateTime.now().millisecondsSinceEpoch;
+  String? _currentKey;
 
-  String? currentKey;
-
-  String? getCurrentKey() {
-    return currentKey;
+  bool isCurrentHistory() {
+    return _currentKey == null;
   }
 
-  void renewCurrentKey() {
-    currentKey = createNextKey();
+  void renewCurrentHistory() {
+    _currentKey = _createNextKey();
+    _putHistory(_currentKey!, _createNewHistory());
   }
 
-  void clearCurrentKey() {
-    currentKey = null;
+  void clearCurrentHistory() {
+    _currentKey = null;
   }
 
-  Future<void> saveLapsToCurrentHistory(List<Lap> laps) async {
-    if (currentKey == null) throw NullThrownError();
-    final history = await getHistory(currentKey);
+  Future<void> overwriteLapsInCurrentHistory(List<Lap> laps) async {
+    final history = await _getCurrentHistory();
     if (history == null) throw NullThrownError();
-    history.laps = laps;
-    putHistory(currentKey!, history);
+    final newHistory = history.copyWith(laps: laps);
+    _putHistory(_currentKey!, newHistory);
   }
+
+  Future<void> overwriteTimesInCurrentHistory(int msec) async {
+    final history = await _getCurrentHistory();
+    if (history == null) throw NullThrownError();
+    final newHistory = history.copyWith(msec: msec);
+    _putHistory(_currentKey!, newHistory);
+  }
+
+  Future<void> _putHistory(String key, History history) async {
+    final table = await getTable();
+    await table.put(key, history);
+  }
+
+  String _createNextKey() {
+    return _currentMsec().hashCode.toString();
+  }
+
+  History _createNewHistory() {
+    final now = DateTime.now();
+    return History(0, now);
+  }
+
+  Future<History?> _getCurrentHistory() async {
+    if (_currentKey == null) throw NullThrownError();
+    return getHistory(_currentKey);
+  }
+
+  int _currentMsec() => DateTime.now().millisecondsSinceEpoch;
 }
