@@ -88,10 +88,6 @@ class MockHistoryRepository extends _i1.Mock implements _i5.HistoryRepository {
   }
 
   @override
-  set currentKey(String? _currentKey) =>
-      super.noSuchMethod(Invocation.setter(#currentKey, _currentKey),
-          returnValueForMissingStub: null);
-  @override
   _i6.Future<_i2.Table<_i3.History>> getTable() => (super.noSuchMethod(
           Invocation.method(#getTable, []),
           returnValue:
@@ -108,23 +104,14 @@ class MockHistoryRepository extends _i1.Mock implements _i5.HistoryRepository {
               returnValue: Future<_i3.History?>.value(_FakeHistory()))
           as _i6.Future<_i3.History?>);
   @override
-  _i6.Future<void> putHistory(String? key, _i3.History? history) =>
-      (super.noSuchMethod(Invocation.method(#putHistory, [key, history]),
-          returnValue: Future<void>.value(null),
-          returnValueForMissingStub: Future.value()) as _i6.Future<void>);
-  @override
-  String createNextKey() => (super
-          .noSuchMethod(Invocation.method(#createNextKey, []), returnValue: '')
-      as String);
-  @override
-  _i3.History createHistory(int? msec) =>
-      (super.noSuchMethod(Invocation.method(#createHistory, [msec]),
-          returnValue: _FakeHistory()) as _i3.History);
-  @override
   _i6.Future<void> deleteHistory(dynamic key) =>
       (super.noSuchMethod(Invocation.method(#deleteHistory, [key]),
           returnValue: Future<void>.value(null),
           returnValueForMissingStub: Future.value()) as _i6.Future<void>);
+  @override
+  bool isCurrentHistory() =>
+      (super.noSuchMethod(Invocation.method(#isCurrentHistory, []),
+          returnValue: false) as bool);
   @override
   void renewCurrentHistory() =>
       super.noSuchMethod(Invocation.method(#renewCurrentHistory, []),
@@ -143,9 +130,4 @@ class MockHistoryRepository extends _i1.Mock implements _i5.HistoryRepository {
       .noSuchMethod(Invocation.method(#overwriteTimesInCurrentHistory, [msec]),
           returnValue: Future<void>.value(null),
           returnValueForMissingStub: Future.value()) as _i6.Future<void>);
-  @override
-  _i6.Future<_i3.History?> getCurrentHistory() =>
-      (super.noSuchMethod(Invocation.method(#getCurrentHistory, []),
-              returnValue: Future<_i3.History?>.value(_FakeHistory()))
-          as _i6.Future<_i3.History?>);
 }
