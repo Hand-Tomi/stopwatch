@@ -1,9 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:hive/hive.dart';
 
 part 'lap.g.dart';
 
 @HiveType(typeId: 2)
-class Lap extends HiveObject {
+class Lap extends HiveObject with EquatableMixin {
   @HiveField(0)
   final int lap;
 
@@ -14,4 +15,7 @@ class Lap extends HiveObject {
   final int splitTime;
 
   Lap(this.lap, this.lapTime, this.splitTime);
+
+  @override
+  List<Object?> get props => [lap, lapTime, splitTime];
 }
