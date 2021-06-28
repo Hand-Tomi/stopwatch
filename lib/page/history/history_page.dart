@@ -4,6 +4,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:stopwatch/bloc/history/history.dart';
 import 'package:stopwatch/model/history.dart';
+import 'package:stopwatch/page/history_detail/history_detail_aguments.dart';
 import 'package:stopwatch/routes.dart';
 import 'package:stopwatch/util/date_time_extensions.dart';
 import 'package:stopwatch/util/msec_extensions.dart';
@@ -95,8 +96,16 @@ class _HistoryPageState extends State<HistoryPage> {
         style: Theme.of(context).textTheme.caption,
       ),
       trailing: Icon(Icons.chevron_right),
-      onTap: () => Navigator.pushNamed(context, Routes.historyDetail),
+      onTap: () => Navigator.pushNamed(
+        context,
+        Routes.historyDetail,
+        arguments: createHistoryArguments(history),
+      ),
     );
+  }
+
+  HistoryDetailArguments createHistoryArguments(History history) {
+    return HistoryDetailArguments(history.key);
   }
 
   Widget createDeleteAction(History history) {
