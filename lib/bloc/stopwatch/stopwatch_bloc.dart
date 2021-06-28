@@ -39,7 +39,7 @@ class StopwatchBloc extends Bloc<StopwatchEvent, StopwatchState> {
   }
 
   Stream<StopwatchState> _mapStopwatchStartedToState() async* {
-    renewCurrentHistoryIfNotExists();
+    _renewCurrentHistoryIfNotExists();
     _stopwatch.start();
     yield StopwatchPlaying(_stopwatchMsec());
     _replcator.start(_updateTime);
@@ -54,18 +54,32 @@ class StopwatchBloc extends Bloc<StopwatchEvent, StopwatchState> {
     _replcator.stop();
     _stopwatch.stop();
     final currentMsec = _stopwatchMsec();
-    saveHistoryIfCurrentHistoryExists(currentMsec);
+    _saveHistoryIfCurrentHistoryExists(currentMsec);
     yield StopwatchPausing(currentMsec);
   }
 
   Stream<StopwatchState> _mapStopwatchResetToState() async* {
     _replcator.stop();
     _stopwatch.stop();
-    await saveHistoryIfCurrentHistoryExists(_stopwatchMsec());
+    await _saveHistoryIfCurrentHistoryExists(_stopwatchMsec());
 
     _stopwatch.reset();
-    clearHistoryKey();
+    _clearCurrentHistory();
     yield StopwatchInitial();
+  }
+
+  void _renewCurrentHistoryIfNotExists() {
+    if (_historyRepository.isCurrentHistory()) {
+      _historyRepository.renewCurrentHistory();
+    }
+  }
+
+  void _clearCurrentHistory() {
+    _historyRepository.clearCurrentHistory();
+  }
+
+  Future<void> _saveHistoryIfCurrentHistoryExists(int msec) async {
+    await _historyRepository.overwriteTimesInCurrentHistory(msec);
   }
 
   void _updateTime() {
@@ -74,18 +88,4 @@ class StopwatchBloc extends Bloc<StopwatchEvent, StopwatchState> {
   }
 
   int _stopwatchMsec() => _stopwatch.elapsedMilliseconds;
-
-  void renewCurrentHistoryIfNotExists() {
-    if (_historyRepository.isCurrentHistory()) {
-      _historyRepository.renewCurrentHistory();
-    }
-  }
-
-  void clearHistoryKey() {
-    _historyRepository.clearCurrentHistory();
-  }
-
-  Future<void> saveHistoryIfCurrentHistoryExists(int msec) async {
-    await _historyRepository.overwriteTimesInCurrentHistory(msec);
-  }
 }
