@@ -46,6 +46,7 @@ class _HistoryDetailPageState extends State<HistoryDetailPage> {
                 _timeText(state),
                 _savedAt(state),
                 _lapsTable(state),
+                _deleteButton()
               ],
             );
           },
@@ -99,6 +100,17 @@ class _HistoryDetailPageState extends State<HistoryDetailPage> {
       default:
         return Container();
     }
+  }
+
+  Widget _deleteButton() {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: TextButton(
+        style: TextButton.styleFrom(primary: Colors.red),
+        onPressed: () {},
+        child: Text('Delete'),
+      ),
+    );
   }
 
   void _fetchData() {
