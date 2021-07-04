@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stopwatch/bloc/history_detail/history_detail.dart';
 import 'package:stopwatch/page/history_detail/history_detail_aguments.dart';
 import 'package:stopwatch/page/widget/laps_table.dart';
+import 'package:stopwatch/util/date_time_extensions.dart';
 import 'package:stopwatch/util/msec_extensions.dart';
 
 class HistoryDetailPage extends StatefulWidget {
@@ -43,6 +44,7 @@ class _HistoryDetailPageState extends State<HistoryDetailPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 _timeText(state),
+                _savedAt(state),
                 _lapsTable(state),
               ],
             );
@@ -58,10 +60,26 @@ class _HistoryDetailPageState extends State<HistoryDetailPage> {
         final msec = (state as HistoryDetailLoading).history.msec;
         final displayTime = msec.parseDisplayTime();
         return Padding(
-          padding: const EdgeInsets.only(top: 30.0, bottom: 30.0),
+          padding: const EdgeInsets.only(top: 30.0),
           child: Text(
             displayTime,
             style: Theme.of(context).textTheme.headline1,
+          ),
+        );
+      default:
+        return Container();
+    }
+  }
+
+  Widget _savedAt(HistoryDetailState state) {
+    switch (state.runtimeType) {
+      case HistoryDetailLoading:
+        final savedAt = (state as HistoryDetailLoading).history.savedAt;
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 30.0),
+          child: Text(
+            "Saved at " + savedAt.toDateTimeString(),
+            style: Theme.of(context).textTheme.caption,
           ),
         );
       default:
