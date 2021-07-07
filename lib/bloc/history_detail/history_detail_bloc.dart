@@ -14,6 +14,10 @@ class HistoryDetailBloc extends Bloc<HistoryDetailEvent, HistoryDetailState> {
         yield* _mapHistoryFetchedToState(
             (event as HistoryDetailFetched).historyKey);
         break;
+      case HistoryDetailDeleted:
+        yield* _mapHistoryDeletedToState(
+            (event as HistoryDetailDeleted).historyKey);
+        break;
     }
   }
 
@@ -22,5 +26,9 @@ class HistoryDetailBloc extends Bloc<HistoryDetailEvent, HistoryDetailState> {
     if (history != null) {
       yield HistoryDetailLoading(history);
     }
+  }
+
+  Stream<HistoryDetailState> _mapHistoryDeletedToState(historyKey) async* {
+    _historyRepository.deleteHistory(historyKey);
   }
 }

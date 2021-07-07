@@ -13,3 +13,11 @@ class HistoryDetailFetched extends HistoryDetailEvent {
   @override
   List<Object> get props => [];
 }
+
+class HistoryDetailDeleted extends HistoryDetailEvent {
+  final dynamic historyKey;
+  const HistoryDetailDeleted(this.historyKey);
+
+  @override
+  List<Object> get props => [];
+}
