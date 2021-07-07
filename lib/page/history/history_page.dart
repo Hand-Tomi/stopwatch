@@ -24,7 +24,7 @@ class _HistoryPageState extends State<HistoryPage> {
   @override
   void initState() {
     super.initState();
-    bloc.add(HistoryFetched());
+    _refreshHistorys();
   }
 
   @override
@@ -96,11 +96,7 @@ class _HistoryPageState extends State<HistoryPage> {
         style: Theme.of(context).textTheme.caption,
       ),
       trailing: Icon(Icons.chevron_right),
-      onTap: () => Navigator.pushNamed(
-        context,
-        Routes.historyDetail,
-        arguments: createHistoryArguments(history),
-      ),
+      onTap: () => _pushHistoryDetail(history),
     );
   }
 
@@ -119,5 +115,18 @@ class _HistoryPageState extends State<HistoryPage> {
 
   void _deleteHistory(History history) {
     bloc.add(HistoryDeleted(history.key));
+  }
+
+  void _refreshHistorys() {
+    bloc.add(HistoryFetched());
+  }
+
+  void _pushHistoryDetail(History history) async {
+    await Navigator.pushNamed(
+      context,
+      Routes.historyDetail,
+      arguments: createHistoryArguments(history),
+    );
+    _refreshHistorys();
   }
 }
