@@ -17,7 +17,7 @@ class HistoryRepository {
       final table = await _database.getTable<History>(AppTables.history);
       _table = table;
     }
-    return await _database.getTable<History>(AppTables.history);
+    return _table!;
   }
 
   Future<Iterable<History>> getHistorys() async {
