@@ -5,6 +5,7 @@ import 'package:stopwatch/bloc/stopwatch/stopwatch.dart';
 import 'package:stopwatch/bloc/stopwatch_notification/stopwatch_notification.dart';
 import 'package:stopwatch/notification/notification_helper.dart';
 import 'package:stopwatch/util/replicator.dart';
+import 'package:stopwatch/util/my_stopwatch.dart';
 import 'package:stopwatch/page/switch/stopwatch_page.dart';
 
 class StopwatchPageCreator {
@@ -20,7 +21,7 @@ class StopwatchPageCreator {
     return [
       BlocProvider<StopwatchBloc>(
         create: (context) => StopwatchBloc(
-          stopwatch: Stopwatch(),
+          stopwatch: MyStopwatch(),
           replcator: Replicator(_updateInterval),
           historyRepository: context.read(),
         ),

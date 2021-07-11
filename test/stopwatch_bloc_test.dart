@@ -5,20 +5,21 @@ import 'package:stopwatch/bloc/stopwatch/stopwatch_bloc.dart';
 import 'package:stopwatch/bloc/stopwatch/stopwatch_event.dart';
 import 'package:stopwatch/bloc/stopwatch/stopwatch_state.dart';
 import 'package:stopwatch/repository/history_repository.dart';
+import 'package:stopwatch/util/my_stopwatch.dart';
 import 'package:stopwatch/util/replicator.dart';
 import 'package:mockito/annotations.dart';
 
 import 'stopwatch_bloc_test.mocks.dart';
 
-@GenerateMocks([Stopwatch, Replicator, HistoryRepository])
+@GenerateMocks([MyStopwatch, Replicator, HistoryRepository])
 void main() {
   late StopwatchBloc bloc;
-  late MockStopwatch mockStopwatch;
+  late MockMyStopwatch mockStopwatch;
   late MockReplicator mockReplicator;
   late MockHistoryRepository mockHistoryRepository;
 
   setUp(() {
-    mockStopwatch = MockStopwatch();
+    mockStopwatch = MockMyStopwatch();
     mockReplicator = MockReplicator();
     mockHistoryRepository = MockHistoryRepository();
     int dummySecond = 0;

@@ -1,17 +1,16 @@
-import 'dart:async';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stopwatch/bloc/stopwatch/stopwatch.dart';
 import 'package:stopwatch/repository/history_repository.dart';
 import 'package:stopwatch/util/replicator.dart';
+import 'package:stopwatch/util/my_stopwatch.dart';
 
 class StopwatchBloc extends Bloc<StopwatchEvent, StopwatchState> {
-  final Stopwatch _stopwatch;
+  final MyStopwatch _stopwatch;
   final Replicator _replcator;
   final HistoryRepository _historyRepository;
 
   StopwatchBloc(
-      {required Stopwatch stopwatch,
+      {required MyStopwatch stopwatch,
       required Replicator replcator,
       required HistoryRepository historyRepository})
       : _stopwatch = stopwatch,
