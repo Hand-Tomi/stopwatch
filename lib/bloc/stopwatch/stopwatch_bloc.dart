@@ -16,7 +16,7 @@ class StopwatchBloc extends Bloc<StopwatchEvent, StopwatchState> {
       : _stopwatch = stopwatch,
         _replcator = replcator,
         _historyRepository = historyRepository,
-        super(StopwatchInitial());
+        super(StopwatchResetting());
 
   @override
   Stream<StopwatchState> mapEventToState(event) async* {
@@ -64,7 +64,7 @@ class StopwatchBloc extends Bloc<StopwatchEvent, StopwatchState> {
 
     _stopwatch.reset();
     _clearCurrentHistory();
-    yield StopwatchInitial();
+    yield StopwatchResetting();
   }
 
   void _renewCurrentHistoryIfNotExists() {

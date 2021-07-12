@@ -30,7 +30,7 @@ class StopwatchJoystick extends StatelessWidget {
       height: iconSize,
       child: BlocBuilder<StopwatchBloc, StopwatchState>(
         builder: (context, state) {
-          if (state is StopwatchInitial) {
+          if (state is StopwatchResetting) {
             return _emptyWidget();
           } else {
             return _resetButton(bloc, lapsBloc);

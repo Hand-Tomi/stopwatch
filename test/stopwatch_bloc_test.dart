@@ -82,7 +82,7 @@ void main() {
       expect: () => const <StopwatchState>[
         StopwatchPlaying(0),
         StopwatchPlaying(1),
-        StopwatchInitial(),
+        StopwatchResetting(),
       ],
       verify: (_) {
         verifyInOrder([
@@ -118,7 +118,7 @@ void main() {
         StopwatchPlaying(0),
         StopwatchPlaying(1),
         StopwatchPausing(1),
-        StopwatchInitial(),
+        StopwatchResetting(),
       ],
       verify: (_) {
         verifyInOrder([
@@ -158,7 +158,7 @@ void main() {
         StopwatchPlaying(1),
         StopwatchPausing(1),
         StopwatchPlaying(2),
-        StopwatchInitial(),
+        StopwatchResetting(),
       ],
       verify: (_) {
         verifyInOrder([
@@ -206,7 +206,7 @@ void main() {
         StopwatchPausing(1),
         StopwatchPlaying(2),
         StopwatchPausing(3),
-        StopwatchInitial(),
+        StopwatchResetting(),
       ],
       verify: (_) {
         verifyInOrder([

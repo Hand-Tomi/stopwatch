@@ -51,7 +51,7 @@ class _StopwatchPageState extends State<StopwatchPage> {
       BuildContext context, StopwatchState state) {
     final stopwatchNotificationBloc = context.read<StopwatchNotificationBloc>();
     switch (state.runtimeType) {
-      case StopwatchInitial:
+      case StopwatchResetting:
         stopwatchNotificationBloc.add(StopwatchNotificationHided());
         break;
       default:
