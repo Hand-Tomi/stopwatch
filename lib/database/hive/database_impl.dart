@@ -3,6 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:stopwatch/core/app_tables.dart';
 import 'package:stopwatch/database/hive/table_imps.dart';
+import 'package:stopwatch/model/config.dart';
 import 'package:stopwatch/model/history.dart';
 import 'package:stopwatch/model/lap.dart';
 
@@ -17,6 +18,7 @@ class DatabaseImps extends Database {
     await Hive.initFlutter();
     Hive.registerAdapter(HistoryAdapter());
     Hive.registerAdapter(LapAdapter());
+    Hive.registerAdapter(ConfigAdapter());
     _isInitialized.add(true);
   }
 
