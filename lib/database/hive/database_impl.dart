@@ -4,6 +4,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:stopwatch/core/app_tables.dart';
 import 'package:stopwatch/database/hive/table_imps.dart';
 import 'package:stopwatch/model/config.dart';
+import 'package:stopwatch/model/current_stopwatch.dart';
 import 'package:stopwatch/model/history.dart';
 import 'package:stopwatch/model/lap.dart';
 
@@ -19,6 +20,7 @@ class DatabaseImps extends Database {
     Hive.registerAdapter(HistoryAdapter());
     Hive.registerAdapter(LapAdapter());
     Hive.registerAdapter(ConfigAdapter());
+    Hive.registerAdapter(CurrentStopwatchAdapter());
     _isInitialized.add(true);
   }
 

@@ -17,6 +17,13 @@ class StopwatchPage extends StatefulWidget {
 
 class _StopwatchPageState extends State<StopwatchPage> {
   static final pageTitle = 'Stopwatch';
+  late final StopwatchBloc stopwatchBloc = context.read<StopwatchBloc>();
+
+  @override
+  void initState() {
+    super.initState();
+    stopwatchBloc.add(StopwatchInitialize());
+  }
 
   @override
   Widget build(BuildContext context) {

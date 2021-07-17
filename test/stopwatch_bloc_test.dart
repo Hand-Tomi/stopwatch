@@ -4,6 +4,8 @@ import 'package:mockito/mockito.dart';
 import 'package:stopwatch/bloc/stopwatch/stopwatch_bloc.dart';
 import 'package:stopwatch/bloc/stopwatch/stopwatch_event.dart';
 import 'package:stopwatch/bloc/stopwatch/stopwatch_state.dart';
+import 'package:stopwatch/model/current_stopwatch.dart';
+import 'package:stopwatch/repository/config_repository.dart';
 import 'package:stopwatch/repository/history_repository.dart';
 import 'package:stopwatch/util/my_stopwatch.dart';
 import 'package:stopwatch/util/replicator.dart';
@@ -11,25 +13,39 @@ import 'package:mockito/annotations.dart';
 
 import 'stopwatch_bloc_test.mocks.dart';
 
-@GenerateMocks([MyStopwatch, Replicator, HistoryRepository])
+@GenerateMocks([MyStopwatch, Replicator, HistoryRepository, ConfigRepository])
 void main() {
   late StopwatchBloc bloc;
   late MockMyStopwatch mockStopwatch;
   late MockReplicator mockReplicator;
   late MockHistoryRepository mockHistoryRepository;
+  late MockConfigRepository mockConfigRepository;
+  final dummyStart = 123;
+  final dummyStop = 124;
+  final dummyHistoryKey = "historyKey";
+  final dummyCurrentStopwath = CurrentStopwatch(
+    start: dummyStart,
+    stop: dummyStop,
+    historyKey: dummyHistoryKey,
+  );
 
   setUp(() {
     mockStopwatch = MockMyStopwatch();
     mockReplicator = MockReplicator();
     mockHistoryRepository = MockHistoryRepository();
+    mockConfigRepository = MockConfigRepository();
     int dummySecond = 0;
     when(mockStopwatch.elapsedMilliseconds).thenAnswer((realInvocation) {
       return dummySecond++;
     });
+    when(mockStopwatch.startElapsedMilliseconds).thenReturn(dummyStart);
+    when(mockStopwatch.stopElapsedMilliseconds).thenReturn(dummyStop);
+    when(mockHistoryRepository.currentKey).thenReturn(dummyHistoryKey);
     bloc = StopwatchBloc(
       stopwatch: mockStopwatch,
       replcator: mockReplicator,
       historyRepository: mockHistoryRepository,
+      configRepository: mockConfigRepository,
     );
   });
 
@@ -64,6 +80,7 @@ void main() {
           mockReplicator.start(any),
           mockReplicator.stop(),
         ]);
+        verify(mockConfigRepository.putCurrentStopwatch(dummyCurrentStopwath));
       },
     );
 
@@ -97,6 +114,10 @@ void main() {
         verifyInOrder([
           mockReplicator.start(any),
           mockReplicator.stop(),
+        ]);
+        verifyInOrder([
+          mockConfigRepository.putCurrentStopwatch(dummyCurrentStopwath),
+          mockConfigRepository.removeTimeStarted(),
         ]);
       },
     );
@@ -134,6 +155,10 @@ void main() {
         verifyInOrder([
           mockReplicator.start(any),
           mockReplicator.stop(),
+        ]);
+        verifyInOrder([
+          mockConfigRepository.putCurrentStopwatch(dummyCurrentStopwath),
+          mockConfigRepository.removeTimeStarted(),
         ]);
       },
     );
@@ -180,6 +205,11 @@ void main() {
           mockReplicator.stop(),
           mockReplicator.start(any),
           mockReplicator.stop(),
+        ]);
+        verifyInOrder([
+          mockConfigRepository.putCurrentStopwatch(dummyCurrentStopwath),
+          mockConfigRepository.putCurrentStopwatch(dummyCurrentStopwath),
+          mockConfigRepository.removeTimeStarted(),
         ]);
       },
     );
@@ -231,6 +261,11 @@ void main() {
           mockReplicator.start(any),
           mockReplicator.stop(),
           mockReplicator.stop(),
+        ]);
+        verifyInOrder([
+          mockConfigRepository.putCurrentStopwatch(dummyCurrentStopwath),
+          mockConfigRepository.putCurrentStopwatch(dummyCurrentStopwath),
+          mockConfigRepository.removeTimeStarted(),
         ]);
       },
     );

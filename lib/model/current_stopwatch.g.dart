@@ -1,32 +1,38 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'config.dart';
+part of 'current_stopwatch.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class ConfigAdapter extends TypeAdapter<Config> {
+class CurrentStopwatchAdapter extends TypeAdapter<CurrentStopwatch> {
   @override
-  final int typeId = 3;
+  final int typeId = 4;
 
   @override
-  Config read(BinaryReader reader) {
+  CurrentStopwatch read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Config(
-      fields[0] as CurrentStopwatch?,
+    return CurrentStopwatch(
+      start: fields[0] as int,
+      stop: fields[1] as int?,
+      historyKey: fields[2] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, Config obj) {
+  void write(BinaryWriter writer, CurrentStopwatch obj) {
     writer
-      ..writeByte(1)
+      ..writeByte(3)
       ..writeByte(0)
-      ..write(obj.currentStopwatch);
+      ..write(obj.start)
+      ..writeByte(1)
+      ..write(obj.stop)
+      ..writeByte(2)
+      ..write(obj.historyKey);
   }
 
   @override
@@ -35,7 +41,7 @@ class ConfigAdapter extends TypeAdapter<Config> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is ConfigAdapter &&
+      other is CurrentStopwatchAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

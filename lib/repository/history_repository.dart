@@ -37,6 +37,12 @@ class HistoryRepository {
 
   String? _currentKey;
 
+  set currentKey(String currentKey) {
+    _currentKey = currentKey;
+  }
+
+  String get currentKey => _currentKey!;
+
   bool isCurrentHistory() {
     return _currentKey == null;
   }

@@ -1,6 +1,17 @@
+import 'package:stopwatch/model/current_stopwatch.dart';
+
 class MyStopwatch {
   int _start = 0;
+  int get startElapsedMilliseconds => _start;
+
   int? _stop = 0;
+  int? get stopElapsedMilliseconds => _stop;
+
+  void init(int start, int? stop) {
+    _start = start;
+    _stop = stop;
+  }
+
   void start() {
     int? stop = _stop;
     if (stop != null) {

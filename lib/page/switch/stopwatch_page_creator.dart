@@ -19,13 +19,14 @@ class StopwatchPageCreator {
   List<BlocProvider> stopwatchPageBlocProvider() {
     final Duration _updateInterval = const Duration(milliseconds: 10);
     return [
-      BlocProvider<StopwatchBloc>(
-        create: (context) => StopwatchBloc(
+      BlocProvider<StopwatchBloc>(create: (context) {
+        return StopwatchBloc(
           stopwatch: MyStopwatch(),
           replcator: Replicator(_updateInterval),
           historyRepository: context.read(),
-        ),
-      ),
+          configRepository: context.read(),
+        );
+      }),
       BlocProvider<LapsBloc>(
         create: (context) => LapsBloc(context.read()),
       ),

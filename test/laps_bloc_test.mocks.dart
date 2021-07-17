@@ -27,6 +27,14 @@ class MockHistoryRepository extends _i1.Mock implements _i3.HistoryRepository {
   }
 
   @override
+  set currentKey(String? currentKey) =>
+      super.noSuchMethod(Invocation.setter(#currentKey, currentKey),
+          returnValueForMissingStub: null);
+  @override
+  String get currentKey =>
+      (super.noSuchMethod(Invocation.getter(#currentKey), returnValue: '')
+          as String);
+  @override
   _i4.Future<_i2.Table<_i5.History>> getTable() => (super.noSuchMethod(
           Invocation.method(#getTable, []),
           returnValue:

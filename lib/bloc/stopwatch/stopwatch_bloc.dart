@@ -1,5 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stopwatch/bloc/stopwatch/stopwatch.dart';
+import 'package:stopwatch/model/current_stopwatch.dart';
+import 'package:stopwatch/repository/config_repository.dart';
 import 'package:stopwatch/repository/history_repository.dart';
 import 'package:stopwatch/util/replicator.dart';
 import 'package:stopwatch/util/my_stopwatch.dart';
@@ -8,19 +10,25 @@ class StopwatchBloc extends Bloc<StopwatchEvent, StopwatchState> {
   final MyStopwatch _stopwatch;
   final Replicator _replcator;
   final HistoryRepository _historyRepository;
+  final ConfigRepository _configRepository;
 
-  StopwatchBloc(
-      {required MyStopwatch stopwatch,
-      required Replicator replcator,
-      required HistoryRepository historyRepository})
-      : _stopwatch = stopwatch,
+  StopwatchBloc({
+    required MyStopwatch stopwatch,
+    required Replicator replcator,
+    required HistoryRepository historyRepository,
+    required ConfigRepository configRepository,
+  })  : _stopwatch = stopwatch,
         _replcator = replcator,
         _historyRepository = historyRepository,
+        _configRepository = configRepository,
         super(StopwatchResetting());
 
   @override
   Stream<StopwatchState> mapEventToState(event) async* {
     switch (event.runtimeType) {
+      case StopwatchInitialize:
+        yield* _mapStopwatchInitializeToState();
+        break;
       case StopwatchStarted:
         yield* _mapStopwatchStartedToState();
         break;
@@ -37,11 +45,30 @@ class StopwatchBloc extends Bloc<StopwatchEvent, StopwatchState> {
     }
   }
 
+  Stream<StopwatchState> _mapStopwatchInitializeToState() async* {
+    final currentStopwatch = await _configRepository.getCurrentStopwatch();
+    if (currentStopwatch != null) {
+      _stopwatch.init(currentStopwatch.start, currentStopwatch.stop);
+      _historyRepository.currentKey = currentStopwatch.historyKey;
+      yield StopwatchInitializing(_stopwatchMsec());
+      _replcator.start(_updateTime);
+    }
+  }
+
   Stream<StopwatchState> _mapStopwatchStartedToState() async* {
     _renewCurrentHistoryIfNotExists();
     _stopwatch.start();
+    _configRepository.putCurrentStopwatch(_createCurrentStopwatch());
     yield StopwatchPlaying(_stopwatchMsec());
     _replcator.start(_updateTime);
+  }
+
+  CurrentStopwatch _createCurrentStopwatch() {
+    return CurrentStopwatch(
+      start: _stopwatch.startElapsedMilliseconds,
+      stop: _stopwatch.stopElapsedMilliseconds,
+      historyKey: _historyRepository.currentKey,
+    );
   }
 
   Stream<StopwatchState> _mapStopwatchTickedToState(
@@ -63,6 +90,7 @@ class StopwatchBloc extends Bloc<StopwatchEvent, StopwatchState> {
     await _saveHistoryIfCurrentHistoryExists(_stopwatchMsec());
 
     _stopwatch.reset();
+    _configRepository.removeTimeStarted();
     _clearCurrentHistory();
     yield StopwatchResetting();
   }

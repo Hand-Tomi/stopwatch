@@ -6,6 +6,8 @@ class StopwatchEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class StopwatchInitialize extends StopwatchEvent {}
+
 class StopwatchStarted extends StopwatchEvent {}
 
 class StopwatchTicked extends StopwatchEvent {

@@ -9,6 +9,10 @@ abstract class StopwatchState extends Equatable {
   List<Object> get props => [msec];
 }
 
+class StopwatchInitializing extends StopwatchState {
+  const StopwatchInitializing(int msec) : super(msec);
+}
+
 class StopwatchResetting extends StopwatchState {
   const StopwatchResetting() : super(0);
 }

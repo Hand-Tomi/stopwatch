@@ -6,8 +6,10 @@ import 'dart:async' as _i6;
 
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:stopwatch/database/table.dart' as _i2;
+import 'package:stopwatch/model/current_stopwatch.dart' as _i10;
 import 'package:stopwatch/model/history.dart' as _i7;
 import 'package:stopwatch/model/lap.dart' as _i8;
+import 'package:stopwatch/repository/config_repository.dart' as _i9;
 import 'package:stopwatch/repository/history_repository.dart' as _i5;
 import 'package:stopwatch/util/my_stopwatch.dart' as _i3;
 import 'package:stopwatch/util/replicator.dart' as _i4;
@@ -29,9 +31,17 @@ class MockMyStopwatch extends _i1.Mock implements _i3.MyStopwatch {
   }
 
   @override
+  int get startElapsedMilliseconds =>
+      (super.noSuchMethod(Invocation.getter(#startElapsedMilliseconds),
+          returnValue: 0) as int);
+  @override
   int get elapsedMilliseconds => (super
           .noSuchMethod(Invocation.getter(#elapsedMilliseconds), returnValue: 0)
       as int);
+  @override
+  void init(int? start, int? stop) =>
+      super.noSuchMethod(Invocation.method(#init, [start, stop]),
+          returnValueForMissingStub: null);
   @override
   void start() => super.noSuchMethod(Invocation.method(#start, []),
       returnValueForMissingStub: null);
@@ -68,6 +78,14 @@ class MockHistoryRepository extends _i1.Mock implements _i5.HistoryRepository {
     _i1.throwOnMissingStub(this);
   }
 
+  @override
+  set currentKey(String? currentKey) =>
+      super.noSuchMethod(Invocation.setter(#currentKey, currentKey),
+          returnValueForMissingStub: null);
+  @override
+  String get currentKey =>
+      (super.noSuchMethod(Invocation.getter(#currentKey), returnValue: '')
+          as String);
   @override
   _i6.Future<_i2.Table<_i7.History>> getTable() => (super.noSuchMethod(
           Invocation.method(#getTable, []),
@@ -108,6 +126,37 @@ class MockHistoryRepository extends _i1.Mock implements _i5.HistoryRepository {
   @override
   _i6.Future<void> overwriteTimesInCurrentHistory(int? msec) => (super
       .noSuchMethod(Invocation.method(#overwriteTimesInCurrentHistory, [msec]),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future.value()) as _i6.Future<void>);
+}
+
+/// A class which mocks [ConfigRepository].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockConfigRepository extends _i1.Mock implements _i9.ConfigRepository {
+  MockConfigRepository() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  String get configKey =>
+      (super.noSuchMethod(Invocation.getter(#configKey), returnValue: '')
+          as String);
+  @override
+  _i6.Future<_i10.CurrentStopwatch?> getCurrentStopwatch() =>
+      (super.noSuchMethod(Invocation.method(#getCurrentStopwatch, []),
+              returnValue: Future<_i10.CurrentStopwatch?>.value())
+          as _i6.Future<_i10.CurrentStopwatch?>);
+  @override
+  _i6.Future<void> putCurrentStopwatch(
+          _i10.CurrentStopwatch? currentStopwatch) =>
+      (super.noSuchMethod(
+          Invocation.method(#putCurrentStopwatch, [currentStopwatch]),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future.value()) as _i6.Future<void>);
+  @override
+  _i6.Future<void> removeTimeStarted() =>
+      (super.noSuchMethod(Invocation.method(#removeTimeStarted, []),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future.value()) as _i6.Future<void>);
 }
