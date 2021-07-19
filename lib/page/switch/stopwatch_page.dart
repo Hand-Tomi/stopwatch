@@ -18,16 +18,18 @@ class StopwatchPage extends StatefulWidget {
 class _StopwatchPageState extends State<StopwatchPage> {
   static final pageTitle = 'Stopwatch';
   late final StopwatchBloc stopwatchBloc = context.read<StopwatchBloc>();
+  late final LapsBloc lapsBloc = context.read<LapsBloc>();
 
   @override
   void initState() {
     super.initState();
     stopwatchBloc.add(StopwatchInitialize());
+    lapsBloc.add(LapsInitialize());
   }
 
   @override
   Widget build(BuildContext context) {
-    final streamLaps = context.read<LapsBloc>().stream;
+    final streamLaps = lapsBloc.stream;
     return BlocListener<StopwatchBloc, StopwatchState>(
       listener: _passingStateWithStopwatchNotification,
       child: Scaffold(

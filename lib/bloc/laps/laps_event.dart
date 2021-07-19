@@ -7,6 +7,8 @@ abstract class LapsEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class LapsInitialize extends LapsEvent {}
+
 class LapsAdded extends LapsEvent {
   final Lap lap;
 
