@@ -28,7 +28,15 @@ class MyStopwatch {
     _start = _stop ?? _now();
   }
 
-  int get elapsedMilliseconds => _now() - _start;
+  int get elapsedMilliseconds {
+    final now = _now();
+    final stop = _stop;
+    if (stop != null) {
+      return now - (_start + (now - stop));
+    } else {
+      return now - _start;
+    }
+  }
 
   int _now() => DateTime.now().millisecondsSinceEpoch;
 }

@@ -18,4 +18,6 @@ class CurrentStopwatch extends HiveObject with EquatableMixin {
 
   @override
   List<Object?> get props => [start, stop, historyKey];
+
+  bool get isStopped => stop != null;
 }

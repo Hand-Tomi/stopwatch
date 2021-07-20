@@ -51,7 +51,9 @@ class StopwatchBloc extends Bloc<StopwatchEvent, StopwatchState> {
       _stopwatch.init(currentStopwatch.start, currentStopwatch.stop);
       _historyRepository.currentKey = currentStopwatch.historyKey;
       yield StopwatchInitializing(_stopwatchMsec());
-      _replcator.start(_updateTime);
+      if (!currentStopwatch.isStopped) {
+        _replcator.start(_updateTime);
+      }
     }
   }
 
@@ -80,6 +82,7 @@ class StopwatchBloc extends Bloc<StopwatchEvent, StopwatchState> {
     _replcator.stop();
     _stopwatch.stop();
     final currentMsec = _stopwatchMsec();
+    _configRepository.putCurrentStopwatch(_createCurrentStopwatch());
     _saveHistoryIfCurrentHistoryExists(currentMsec);
     yield StopwatchPausing(currentMsec);
   }
