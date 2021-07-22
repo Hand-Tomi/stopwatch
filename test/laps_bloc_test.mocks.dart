@@ -6,8 +6,10 @@ import 'dart:async' as _i4;
 
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:stopwatch/database/table.dart' as _i2;
+import 'package:stopwatch/model/current_stopwatch.dart' as _i8;
 import 'package:stopwatch/model/history.dart' as _i5;
 import 'package:stopwatch/model/lap.dart' as _i6;
+import 'package:stopwatch/repository/config_repository.dart' as _i7;
 import 'package:stopwatch/repository/history_repository.dart' as _i3;
 
 // ignore_for_file: avoid_redundant_argument_values
@@ -74,6 +76,37 @@ class MockHistoryRepository extends _i1.Mock implements _i3.HistoryRepository {
   @override
   _i4.Future<void> overwriteTimesInCurrentHistory(int? msec) => (super
       .noSuchMethod(Invocation.method(#overwriteTimesInCurrentHistory, [msec]),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future.value()) as _i4.Future<void>);
+}
+
+/// A class which mocks [ConfigRepository].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockConfigRepository extends _i1.Mock implements _i7.ConfigRepository {
+  MockConfigRepository() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  String get configKey =>
+      (super.noSuchMethod(Invocation.getter(#configKey), returnValue: '')
+          as String);
+  @override
+  _i4.Future<_i8.CurrentStopwatch?> getCurrentStopwatch() =>
+      (super.noSuchMethod(Invocation.method(#getCurrentStopwatch, []),
+              returnValue: Future<_i8.CurrentStopwatch?>.value())
+          as _i4.Future<_i8.CurrentStopwatch?>);
+  @override
+  _i4.Future<void> putCurrentStopwatch(
+          _i8.CurrentStopwatch? currentStopwatch) =>
+      (super.noSuchMethod(
+          Invocation.method(#putCurrentStopwatch, [currentStopwatch]),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future.value()) as _i4.Future<void>);
+  @override
+  _i4.Future<void> removeTimeStarted() =>
+      (super.noSuchMethod(Invocation.method(#removeTimeStarted, []),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future.value()) as _i4.Future<void>);
 }
