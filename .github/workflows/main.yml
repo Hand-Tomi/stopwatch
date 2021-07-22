@@ -32,3 +32,6 @@ jobs:
         with:
           # The Flutter build release channel
           channel: stable
+      - run: flutter pub get
+      - run: flutter analyze
+      - run: flutter test
