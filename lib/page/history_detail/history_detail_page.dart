@@ -47,7 +47,7 @@ class _HistoryDetailPageState extends State<HistoryDetailPage> {
                 _timeText(state),
                 _savedAt(state),
                 _lapsTable(state),
-                _deleteButton()
+                _deleteButton(state)
               ],
             );
           },
@@ -103,17 +103,27 @@ class _HistoryDetailPageState extends State<HistoryDetailPage> {
     }
   }
 
-  Widget _deleteButton() {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: TextButton(
-        style: TextButton.styleFrom(primary: Colors.red),
-        onPressed: () {
-          _showMyDialog();
-        },
-        child: Text('Delete'),
-      ),
-    );
+  Widget _deleteButton(HistoryDetailState state) {
+    switch (state.runtimeType) {
+      case HistoryDetailLoading:
+        final running = (state as HistoryDetailLoading).history.running;
+        if (running) {
+          return Container();
+        } else {
+          return Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: TextButton(
+              style: TextButton.styleFrom(primary: Colors.red),
+              onPressed: () {
+                _showMyDialog();
+              },
+              child: Text('Delete'),
+            ),
+          );
+        }
+      default:
+        return Container();
+    }
   }
 
   Future<void> _showMyDialog() async {

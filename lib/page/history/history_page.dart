@@ -79,9 +79,17 @@ class _HistoryPageState extends State<HistoryPage> {
   Widget createSlidableTile(BuildContext context, History history) {
     return Slidable(
       actionPane: SlidableDrawerActionPane(),
-      actions: [createDeleteAction(history)],
+      actions: createActionsIfNotRunning(history),
       child: createTile(context, history),
     );
+  }
+
+  List<Widget> createActionsIfNotRunning(History history) {
+    if (history.running) {
+      return [];
+    } else {
+      return [createDeleteAction(history)];
+    }
   }
 
   Widget createTile(BuildContext context, History history) {
