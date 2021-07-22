@@ -16,11 +16,17 @@ class History extends HiveObject with EquatableMixin {
   @HiveField(2)
   final List<Lap>? laps;
 
-  History(this.msec, this.savedAt, {this.laps});
+  @HiveField(3)
+  final bool running;
 
-  History copyWith({int? msec, DateTime? savedAt, List<Lap>? laps}) => History(
+  History(this.msec, this.savedAt, this.running, {this.laps});
+
+  History copyWith(
+          {int? msec, DateTime? savedAt, bool? running, List<Lap>? laps}) =>
+      History(
         msec ?? this.msec,
         savedAt ?? this.savedAt,
+        running ?? this.running,
         laps: laps ?? this.laps,
       );
 

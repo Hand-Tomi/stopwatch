@@ -47,12 +47,17 @@ class HistoryRepository {
     return _currentKey == null;
   }
 
-  void renewCurrentHistory() {
+  void openNewCurrentHistory() {
     _currentKey = _createNextKey();
     _putHistory(_currentKey!, _createNewHistory());
   }
 
-  void clearCurrentHistory() {
+  void closeCurrentHistory() async {
+    final history = await _getCurrentHistory();
+    if (history != null) {
+      final newHistory = history.copyWith(running: false);
+      _putHistory(_currentKey!, newHistory);
+    }
     _currentKey = null;
   }
 
@@ -81,7 +86,7 @@ class HistoryRepository {
 
   History _createNewHistory() {
     final now = DateTime.now();
-    return History(0, now);
+    return History(0, now, true);
   }
 
   Future<History?> _getCurrentHistory() async {

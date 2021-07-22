@@ -19,6 +19,7 @@ class HistoryAdapter extends TypeAdapter<History> {
     return History(
       fields[0] as int,
       fields[1] as DateTime,
+      fields[3] as bool,
       laps: (fields[2] as List?)?.cast<Lap>(),
     );
   }
@@ -26,13 +27,15 @@ class HistoryAdapter extends TypeAdapter<History> {
   @override
   void write(BinaryWriter writer, History obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.msec)
       ..writeByte(1)
       ..write(obj.savedAt)
       ..writeByte(2)
-      ..write(obj.laps);
+      ..write(obj.laps)
+      ..writeByte(3)
+      ..write(obj.running);
   }
 
   @override

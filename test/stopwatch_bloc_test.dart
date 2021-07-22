@@ -69,7 +69,7 @@ void main() {
       ],
       verify: (_) {
         verifyInOrder([
-          mockHistoryRepository.renewCurrentHistory(),
+          mockHistoryRepository.openNewCurrentHistory(),
           mockHistoryRepository.overwriteTimesInCurrentHistory(1),
         ]);
         verifyInOrder([
@@ -103,9 +103,9 @@ void main() {
       ],
       verify: (_) {
         verifyInOrder([
-          mockHistoryRepository.renewCurrentHistory(),
+          mockHistoryRepository.openNewCurrentHistory(),
           mockHistoryRepository.overwriteTimesInCurrentHistory(1),
-          mockHistoryRepository.clearCurrentHistory(),
+          mockHistoryRepository.closeCurrentHistory(),
         ]);
         verifyInOrder([
           mockStopwatch.start(),
@@ -143,10 +143,10 @@ void main() {
       ],
       verify: (_) {
         verifyInOrder([
-          mockHistoryRepository.renewCurrentHistory(),
+          mockHistoryRepository.openNewCurrentHistory(),
           mockHistoryRepository.overwriteTimesInCurrentHistory(1),
           mockHistoryRepository.overwriteTimesInCurrentHistory(2),
-          mockHistoryRepository.clearCurrentHistory(),
+          mockHistoryRepository.closeCurrentHistory(),
         ]);
         verifyInOrder([
           mockStopwatch.start(),
@@ -187,11 +187,11 @@ void main() {
       ],
       verify: (_) {
         verifyInOrder([
-          mockHistoryRepository.renewCurrentHistory(),
+          mockHistoryRepository.openNewCurrentHistory(),
           mockHistoryRepository.overwriteTimesInCurrentHistory(1),
-          mockHistoryRepository.renewCurrentHistory(),
+          mockHistoryRepository.openNewCurrentHistory(),
           mockHistoryRepository.overwriteTimesInCurrentHistory(3),
-          mockHistoryRepository.clearCurrentHistory(),
+          mockHistoryRepository.closeCurrentHistory(),
         ]);
         verifyInOrder([
           mockStopwatch.start(),
@@ -240,12 +240,12 @@ void main() {
       ],
       verify: (_) {
         verifyInOrder([
-          mockHistoryRepository.renewCurrentHistory(),
+          mockHistoryRepository.openNewCurrentHistory(),
           mockHistoryRepository.overwriteTimesInCurrentHistory(1),
-          mockHistoryRepository.renewCurrentHistory(),
+          mockHistoryRepository.openNewCurrentHistory(),
           mockHistoryRepository.overwriteTimesInCurrentHistory(3),
           mockHistoryRepository.overwriteTimesInCurrentHistory(4),
-          mockHistoryRepository.clearCurrentHistory(),
+          mockHistoryRepository.closeCurrentHistory(),
         ]);
         verifyInOrder([
           mockStopwatch.start(),

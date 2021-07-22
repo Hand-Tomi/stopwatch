@@ -111,12 +111,12 @@ class MockHistoryRepository extends _i1.Mock implements _i5.HistoryRepository {
       (super.noSuchMethod(Invocation.method(#isCurrentHistory, []),
           returnValue: false) as bool);
   @override
-  void renewCurrentHistory() =>
-      super.noSuchMethod(Invocation.method(#renewCurrentHistory, []),
+  void openNewCurrentHistory() =>
+      super.noSuchMethod(Invocation.method(#openNewCurrentHistory, []),
           returnValueForMissingStub: null);
   @override
-  void clearCurrentHistory() =>
-      super.noSuchMethod(Invocation.method(#clearCurrentHistory, []),
+  void closeCurrentHistory() =>
+      super.noSuchMethod(Invocation.method(#closeCurrentHistory, []),
           returnValueForMissingStub: null);
   @override
   _i6.Future<void> overwriteLapsInCurrentHistory(List<_i8.Lap>? laps) => (super

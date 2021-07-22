@@ -100,12 +100,12 @@ class StopwatchBloc extends Bloc<StopwatchEvent, StopwatchState> {
 
   void _renewCurrentHistoryIfNotExists() {
     if (_historyRepository.isCurrentHistory()) {
-      _historyRepository.renewCurrentHistory();
+      _historyRepository.openNewCurrentHistory();
     }
   }
 
   void _clearCurrentHistory() {
-    _historyRepository.clearCurrentHistory();
+    _historyRepository.closeCurrentHistory();
   }
 
   Future<void> _saveHistoryIfCurrentHistoryExists(int msec) async {

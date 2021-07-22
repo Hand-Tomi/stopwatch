@@ -33,7 +33,7 @@ void main() {
     when(mockConfigRepository.getCurrentStopwatch())
         .thenAnswer((_) => Future.value(currentStopwatch));
 
-    final dummyHistory = History(0, DateTime.now(), laps: laps);
+    final dummyHistory = History(0, DateTime.now(), false, laps: laps);
     when(mockHistoryRepository.getHistory(dummyHistoryKey))
         .thenAnswer((_) => Future.value(dummyHistory));
   }
