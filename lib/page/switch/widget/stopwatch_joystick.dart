@@ -4,6 +4,7 @@ import 'package:stopwatch/bloc/laps/laps.dart';
 import 'package:stopwatch/bloc/stopwatch/stopwatch.dart';
 import 'package:stopwatch/model/lap.dart';
 import 'package:stopwatch/page/switch/widget/round_button.dart';
+import 'package:stopwatch/util/my_vibration.dart';
 
 class StopwatchJoystick extends StatelessWidget {
   static final iconSize = 80.0;
@@ -79,16 +80,20 @@ class StopwatchJoystick extends StatelessWidget {
 
   Widget _playButton(StopwatchBloc bloc) {
     return RoundButton(
-      icon: Icon(Icons.play_circle_fill_rounded, size: iconSize),
-      onPressed: () => bloc.add(StopwatchStarted()),
-    );
+        icon: Icon(Icons.play_circle_fill_rounded, size: iconSize),
+        onPressed: () {
+          bloc.add(StopwatchStarted());
+          MyVibration.vibrateWhenClicked();
+        });
   }
 
   Widget _pauseButton(StopwatchBloc bloc) {
     return RoundButton(
-      icon: Icon(Icons.pause_circle_filled_rounded, size: iconSize),
-      onPressed: () => bloc.add(StopwatchPaused()),
-    );
+        icon: Icon(Icons.pause_circle_filled_rounded, size: iconSize),
+        onPressed: () {
+          bloc.add(StopwatchPaused());
+          MyVibration.vibrateWhenClicked();
+        });
   }
 
   Widget _resetButton(StopwatchBloc bloc, LapsBloc lapsBloc) {
@@ -97,6 +102,7 @@ class StopwatchJoystick extends StatelessWidget {
       onPressed: () {
         bloc.add(StopwatchReset());
         lapsBloc.add(LapsCleared());
+        MyVibration.vibrateWhenClicked();
       },
     );
   }
@@ -106,6 +112,7 @@ class StopwatchJoystick extends StatelessWidget {
       icon: Icon(Icons.add_circle, size: iconSize),
       onPressed: () {
         bloc.add(LapsAdded(_createLap(bloc, stopwatchState)));
+        MyVibration.vibrateWhenClicked();
       },
     );
   }
