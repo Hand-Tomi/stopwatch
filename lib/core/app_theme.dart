@@ -11,7 +11,9 @@ class AppTheme {
     final originalTheme = ThemeData.light();
     return originalTheme.copyWith(
       primaryColor: const Color(0xFFA64962),
-      accentColor: const Color(0xFF1D2526),
+      appBarTheme: AppBarTheme(color: const Color(0xFFA64962)),
+      colorScheme: originalTheme.colorScheme
+          .copyWith(secondary: const Color(0xFF1D2526)),
       dividerColor: const Color(0xffCCCCCC),
       textTheme: originalTheme.textTheme.copyWith(
         headline1: _headline1,

@@ -11,7 +11,7 @@ class RoundButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      color: Theme.of(context).accentColor,
+      color: Theme.of(context).colorScheme.secondary,
       padding: const EdgeInsets.all(0.0),
       icon: _icon,
       onPressed: _onPressed,
